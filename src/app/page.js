@@ -1,7 +1,12 @@
+import HeroBanner from "@/components/Home/Banner";
+import StatsSection from "@/components/Home/StatsSection";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <h1>Hello! Welcome to StartupForge</h1>
+    <>
+      <HeroBanner />
+      <StatsSection />
+    </>
   );
 }
