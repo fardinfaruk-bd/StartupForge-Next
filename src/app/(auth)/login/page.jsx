@@ -14,8 +14,8 @@ import {
     Card
 } from "@heroui/react";
 import { At, Eye, EyeSlash, ShieldKeyhole } from "@gravity-ui/icons";
-import { authClient } from "@/lib/auth-client";
 import AuthLeftUi from "@/components/ui/AuthLeftUi";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -42,7 +42,7 @@ export default function LoginPage() {
         setSuccess("");
 
         try {
-            const { data, error: authError } = await authClient.signIn.email({
+            const { data, error: authError } = await signIn.email({
                 email,
                 password,
             });
@@ -59,7 +59,7 @@ export default function LoginPage() {
             setSuccess("Successfully signed in! Redirecting...");
             setTimeout(() => {
                 router.push(redirectTo || "/");
-            }, 2000);
+            }, 1000);
 
         } catch (err) {
             setError(err.message || "An unexpected error occurred.");
@@ -173,7 +173,7 @@ export default function LoginPage() {
                         {/* Navigation Footer links */}
                         <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                             Don&apos;t have an account?{" "}
-                            <Link href={`/signup?redirect=${redirectTo}`} className="font-semibold cursor-pointer text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <Link href={`/register?redirect=${redirectTo}`} className="font-semibold cursor-pointer text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
                                 Sign up instead
                             </Link>
                         </div>

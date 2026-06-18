@@ -18,8 +18,9 @@ import {
     Card
 } from "@heroui/react";
 import { Person, At, Eye, EyeSlash, Camera, ShieldKeyhole } from "@gravity-ui/icons";
-import { authClient } from "@/lib/auth-client";
 import AuthLeftUi from "@/components/ui/AuthLeftUi";
+import { toast } from "react-toastify";
+import { signUp } from "@/lib/auth-client";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -42,7 +43,6 @@ export default function SignupPage() {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -95,7 +95,7 @@ export default function SignupPage() {
                 }
             }
 
-            const { data, error: authError } = await authClient.signUp.email({
+            const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
@@ -117,10 +117,12 @@ export default function SignupPage() {
             setImagePreview("");
             if (fileInputRef.current) fileInputRef.current.value = "";
 
-            setSuccess(`Account registered as ${role}! Redirecting...`);
+            if (data) {
+                toast.success(`Account registered as ${role}! Successfully`);
+            }
             setTimeout(() => {
                 router.push(redirectTo || "/");
-            }, 2000);
+            }, 1000);
 
         } catch (err) {
             setError(err.message || "An unexpected error occurred.");
@@ -177,6 +179,8 @@ export default function SignupPage() {
                                     </div>
                                 )}
                             </div>
+                            <small>Max Size: 5 MB</small>
+                            {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
                         </div>
 
                         {/* Name Field */}
@@ -303,19 +307,6 @@ export default function SignupPage() {
                             </RadioGroup>
                         </div>
 
-                        {/* Dynamic Backend Status Messages */}
-                        {error && (
-                            <div className="p-3 text-xs font-medium rounded-xl bg-red-100/60 dark:bg-red-950/50 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900">
-                                <span className="font-semibold">Error:</span> {error}
-                            </div>
-                        )}
-
-                        {success && (
-                            <div className="p-3 text-xs font-medium rounded-xl bg-emerald-100/60 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900">
-                                <span className="font-semibold">Success:</span> {success}
-                            </div>
-                        )}
-
                         {/* Submit Button */}
                         <Button
                             type="submit"
@@ -330,7 +321,7 @@ export default function SignupPage() {
                         {/* Navigation Footer links */}
                         <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                             Already have an account?{" "}
-                            <Link href={`/signin?redirect=${redirectTo}`} className="font-semibold cursor-pointer text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <Link href={`/login?redirect=${redirectTo}`} className="font-semibold cursor-pointer text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
                                 Sign in instead
                             </Link>
                         </div>

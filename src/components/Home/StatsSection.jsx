@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Card, CardBody } from "@heroui/react";
-// Switched to Lucide icons
 import { Rocket, Users, HandCoins } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function StatsSection() {
   const stats = [
@@ -23,19 +23,48 @@ export default function StatsSection() {
       id: 3,
       value: "$2.4B",
       label: "FUNDING RAISED",
-      icon: HandCoins, // Clean icon representing funding/capital handover
+      icon: HandCoins,
     },
   ];
 
+  // Container variants to cascade the animations down to each item sequentially
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, // Delay between each item animation
+      },
+    },
+  };
+
+  // Individual item variants for fading and sliding up
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { type: "spring", stiffness: 100, damping: 15 } 
+    },
+  };
+
   return (
-    <section className="w-full bg-[#f0f5ff] py-12 sm:py-16 px-6 flex justify-center items-center">
-      <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 text-center">
+    <section className="w-full bg-[#f0f5ff] py-12 sm:py-16 px-6 flex justify-center items-center overflow-hidden">
+      <motion.div 
+        className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 text-center"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }} // Triggers when 20% of the section is visible
+      >
         {stats.map((stat) => {
           const IconComponent = stat.icon;
           return (
-            <div
+            <motion.div
               key={stat.id}
-              className="group flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-1"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05, y: -4 }} // Smooth hover lift and scale
+              className="group flex flex-col items-center justify-center cursor-pointer"
             >
               {/* Responsive Icon container */}
               <div className="mb-3 text-[#0a6c61]/80 group-hover:text-[#0a6c61] transition-colors duration-300">
@@ -51,10 +80,10 @@ export default function StatsSection() {
               <span className="mt-2 text-[#4a5568] font-bold text-xs md:text-sm tracking-widest uppercase opacity-90">
                 {stat.label}
               </span>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 }
