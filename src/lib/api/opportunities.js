@@ -8,3 +8,8 @@ export const getAllOpportunities = async () => {
     const res = await fetch(`${baseUrl}/api/opportunities`);
     return res.json();
 }
+
+export const getOpportunityById = async (id) => {
+    const res = await fetch(`${baseUrl}/api/opportunities/${id}`);
+    return res.json();
+}

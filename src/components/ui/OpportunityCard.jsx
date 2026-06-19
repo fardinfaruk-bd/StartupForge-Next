@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@heroui/react";
 import { Layers, Code, Briefcase, DollarSign } from "lucide-react";
+import Link from "next/link";
 
 export default function OpportunityCard({ opportunity }) {
 
@@ -58,11 +59,13 @@ export default function OpportunityCard({ opportunity }) {
       </div>
 
       {/* Action CTA Button */}
-      <Button
-        className="w-full bg-[#051124] text-white hover:bg-[#0c1a30] font-semibold text-[14px] h-[44px] rounded-xl transition-colors"
-      >
-        Apply Now
-      </Button>
+      <Link href={`/opportunities/${opportunity?._id}`}>
+        <Button
+          className="w-full bg-[#051124] text-white hover:bg-[#0c1a30] font-semibold text-[14px] h-[44px] rounded-xl transition-colors"
+        >
+          Apply Now
+        </Button>
+      </Link>
     </div>
   );
 }
