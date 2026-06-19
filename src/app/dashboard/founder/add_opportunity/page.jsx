@@ -1,21 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-// 💡 Core Hero UI v3 layout, form validation, and selection compound elements
-import {
-  Form,
-  Fieldset,
-  TextField,
-  Input,
-  TextArea,
-  Select,
-  Label,
-  ListBox,
-  Button,
-  FieldError
-} from "@heroui/react";
+import {Form, Fieldset, TextField, Input, TextArea, Select, Label, ListBox, Button, FieldError} from "@heroui/react";
 import { Briefcase, Folder, Clock, Calendar, MapPin } from "@gravity-ui/icons";
 import { LaptopMinimal, FileText } from "lucide-react";
+import { createOpportunity } from "@/lib/actions/opportunities";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 export default function PostAOpportunity() {
   const [workType, setWorkType] = useState("");
@@ -27,7 +18,7 @@ export default function PostAOpportunity() {
     isApproved: true,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -90,13 +81,20 @@ export default function PostAOpportunity() {
       workType,
       commitment
     });
+    const payload = {...data, workType, commitment,status: "active", companyId: mockCompany.id};
+    console.log(payload);
+    const res = await createOpportunity(payload);
+    if(res.insertedId){
+      toast.success("Opportunity Created Successfully");
+      e.target.reset();
+      redirect("/dashboard/founder");
+    }
     
 
     // Clear all errors and reset states upon successful pass
     setErrors({});
     setWorkType("");
     setCommitment("");
-    e.currentTarget.reset();
   };
 
   return (

@@ -1,9 +1,14 @@
+import OpportunitiesTable from '@/components/Dashboard/OpportunitiesTable';
+import { getCompanyOpportunities } from '@/lib/api/opportunities';
 import React from 'react';
 
-const ManageOpportunityPage = () => {
+const ManageOpportunityPage = async() => {
+    const companyId = "company_123";
+    const opportunities = await getCompanyOpportunities(companyId, "active");
     return (
-        <div>
-            <h2>Manage Opportunities</h2>
+        <div className='p-4'>
+            <h2 className='text-3xl font-bold'>Manage Opportunities</h2>
+            <OpportunitiesTable opportunities={opportunities}/>
         </div>
     );
 };

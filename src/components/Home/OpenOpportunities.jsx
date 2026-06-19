@@ -2,43 +2,10 @@ import React from "react";
 import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
 import OpportunityCard from "../ui/OpportunityCard";
+import { getAllOpportunities } from "@/lib/api/opportunities";
 
-export default function OpenOpportunities() {
-  const opportunities = [
-    {
-      id: 1,
-      badgeText: "Urgent",
-      badgeType: "urgent",
-      expiryDays: 12,
-      roleTitle: "Lead Product Designer",
-      companyName: "TechNova Solutions",
-      skills: "UI/UX, Figma, Design Systems",
-      salary: "$140k - $180k + Equity",
-      iconType: "design"
-    },
-    {
-      id: 2,
-      badgeText: "Featured",
-      badgeType: "featured",
-      expiryDays: 24,
-      roleTitle: "Fullstack Engineer",
-      companyName: "EcoStream",
-      skills: "Next.js, Go, PostgreSQL",
-      salary: "$130k - $160k + Equity",
-      iconType: "engineering"
-    },
-    {
-      id: 3,
-      badgeText: "Remote",
-      badgeType: "remote",
-      expiryDays: 8,
-      roleTitle: "Head of Growth",
-      companyName: "QuantumPay",
-      skills: "Marketing, Data Analysis, SEO",
-      salary: "$150k - $200k + Equity",
-      iconType: "growth"
-    }
-  ];
+export default async function OpenOpportunities() {
+  const opportunities = await getAllOpportunities();
 
   return (
     <section className="w-full bg-[#f0f5ff] py-16 px-6 flex justify-center items-center">
@@ -57,7 +24,7 @@ export default function OpenOpportunities() {
 
           {/* Replaced Search Field with View All Anchor */}
           <Link
-            href="/jobs"
+            href="/opportunities"
             className="inline-flex items-center gap-1.5 text-[#0f6c61] font-semibold text-[15px] hover:opacity-85 transition-opacity"
           >
             View All
@@ -67,18 +34,8 @@ export default function OpenOpportunities() {
 
         {/* Responsive Layout Grid Mapping */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {opportunities.map((role) => (
-            <OpportunityCard
-              key={role.id}
-              badgeText={role.badgeText}
-              badgeType={role.badgeType}
-              expiryDays={role.expiryDays}
-              roleTitle={role.roleTitle}
-              companyName={role.companyName}
-              skills={role.skills}
-              salary={role.salary}
-              iconType={role.iconType}
-            />
+          {opportunities.map((opportunity, index) => (
+            <OpportunityCard key={index} opportunity={opportunity}/>
           ))}
         </div>
 

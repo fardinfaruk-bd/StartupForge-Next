@@ -1,4 +1,4 @@
-"use client"; // Required for usePathname in Next.js App Router
+"use client";
 
 import { usePathname } from "next/navigation";
 import { Gear, LayoutSideContentLeft, Person } from "@gravity-ui/icons";
@@ -9,14 +9,13 @@ import Link from "next/link";
 export function DashboardSidebar() {
     const pathname = usePathname();
 
-    // Define routes corresponding to your pages
+    
     const contributorNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/contributor" },
         { icon: List, label: "My Applications", href: "/dashboard/contributor/applications" },
         { icon: User, label: "Profile", href: "/dashboard/contributor/profile" },
     ];
 
-    // 2. Founder Role (From image_4a6859.png)
     const founderNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/founder" },
         { icon: Rocket, label: "My Startup", href: "/dashboard/founder/startup" },
@@ -25,7 +24,7 @@ export function DashboardSidebar() {
         { icon: User2, label: "Applications", href: "/dashboard/founder/applications" },
     ];
 
-    // 3. Admin Role (From Screenshot 2026-06-19 155359.png)
+    
     const adminNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/admin" },
         { icon: ShieldUser, label: "Manage Users", href: "/dashboard/admin/users" },
@@ -99,7 +98,7 @@ export function DashboardSidebar() {
     return (
         <>
             {/* Desktop Sidebar Sidebar */}
-            <aside className="hidden h-screen w-64 shrink-0 border-r border-slate-900 bg-[#0a1220] lg:block">
+            <aside className="hidden  w-64 shrink-0 border-r border-slate-900 bg-[#0a1220] lg:block">
                 {navContent}
             </aside>
 
