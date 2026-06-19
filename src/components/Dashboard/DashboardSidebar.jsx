@@ -3,17 +3,34 @@
 import { usePathname } from "next/navigation";
 import { Gear, LayoutSideContentLeft, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
-import { LayoutGrid, List, LogOut } from "lucide-react"; // Using specialized LogOut icon
+import { LayoutGrid, List, User, Rocket, PlusCircle, Layers, CreditCard, ShieldUser, ArrowLeftRight, User2, LogOut } from "lucide-react";
 import Link from "next/link";
 
 export function DashboardSidebar() {
     const pathname = usePathname();
 
     // Define routes corresponding to your pages
-    const topNavItems = [
+    const contributorNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/contributor" },
         { icon: List, label: "My Applications", href: "/dashboard/contributor/applications" },
-        { icon: Person, label: "Profile", href: "/dashboard/contributor/profile" },
+        { icon: User, label: "Profile", href: "/dashboard/contributor/profile" },
+    ];
+
+    // 2. Founder Role (From image_4a6859.png)
+    const founderNavItems = [
+        { icon: LayoutGrid, label: "Overview", href: "/dashboard/founder" },
+        { icon: Rocket, label: "My Startup", href: "/dashboard/founder/startup" },
+        { icon: PlusCircle, label: "Add Opportunity", href: "/dashboard/founder/add_opportunity" },
+        { icon: Layers, label: "Manage Opportunities", href: "/dashboard/founder/manage_opportunity" },
+        { icon: User2, label: "Applications", href: "/dashboard/founder/applications" },
+    ];
+
+    // 3. Admin Role (From Screenshot 2026-06-19 155359.png)
+    const adminNavItems = [
+        { icon: LayoutGrid, label: "Overview", href: "/dashboard/admin" },
+        { icon: ShieldUser, label: "Manage Users", href: "/dashboard/admin/users" },
+        { icon: Rocket, label: "Manage Startups", href: "/dashboard/admin/startups" },
+        { icon: CreditCard, label: "Transactions", href: "/dashboard/admin/transactions" },
     ];
 
     const bottomNavItems = [
@@ -32,8 +49,8 @@ export function DashboardSidebar() {
                         key={item.label}
                         href={item.href}
                         className={`group relative flex items-center gap-3.5 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 w-full text-left overflow-hidden
-                            ${isActive 
-                                ? "bg-[#76f1cc] text-[#0a1220] font-semibold shadow-lg shadow-[#76f1cc]/10" 
+                            ${isActive
+                                ? "bg-[#76f1cc] text-[#0a1220] font-semibold shadow-lg shadow-[#76f1cc]/10"
                                 : "text-slate-400 hover:bg-slate-800/40 hover:text-slate-100"
                             }`}
                     >
@@ -41,11 +58,11 @@ export function DashboardSidebar() {
                         {isActive && (
                             <span className="absolute left-0 top-1/4 h-1/2 w-1 rounded-r-full bg-[#0a1220]/80" />
                         )}
-                        
+
                         <Icon className={`size-5 shrink-0 transition-transform duration-200 group-hover:scale-105
-                            ${isActive ? "text-[#0a1220]" : "text-slate-400 group-hover:text-slate-200"}`} 
+                            ${isActive ? "text-[#0a1220]" : "text-slate-400 group-hover:text-slate-200"}`}
                         />
-                        
+
                         <span className="relative z-10">{item.label}</span>
                     </Link>
                 );
@@ -68,7 +85,7 @@ export function DashboardSidebar() {
                 </div>
 
                 {/* Main Navigation */}
-                <nav className="px-0.5">{renderNavItems(topNavItems)}</nav>
+                <nav className="px-0.5">{renderNavItems(founderNavItems)}</nav>
             </div>
 
             {/* Bottom Nav Section */}
@@ -89,8 +106,8 @@ export function DashboardSidebar() {
             {/* Mobile Drawer */}
             <div className="p-4 lg:hidden bg-[#0a1220] flex items-center border-b border-slate-900">
                 <Drawer>
-                    <Button 
-                        variant="light" 
+                    <Button
+                        variant="light"
                         size="sm"
                         className="text-slate-300 hover:bg-slate-800/50 min-w-10 p-2"
                     >

@@ -1,6 +1,8 @@
+"use client"
+import { useSession } from '@/lib/auth-client';
 import React from 'react';
 
-const contributorProfile = () => {
+const ContributorProfile = () => {
     return (
         <div>
             <h2>Contributor Profile</h2>
@@ -8,4 +10,4 @@ const contributorProfile = () => {
     );
 };
 
-export default contributorProfile;
+export default ContributorProfile;
