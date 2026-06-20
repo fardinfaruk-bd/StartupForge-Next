@@ -70,7 +70,6 @@ export default function SignupPage() {
         e.preventDefault();
         setIsLoading(true);
         setError("");
-        setSuccess("");
 
         let uploadedImageUrl = "";
 

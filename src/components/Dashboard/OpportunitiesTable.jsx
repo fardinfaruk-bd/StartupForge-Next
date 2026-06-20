@@ -2,6 +2,8 @@
 import React from "react";
 import { Button, Table } from "@heroui/react";
 import { Eye, PencilToLine, TrashBin } from "@gravity-ui/icons";
+import Link from "next/link";
+import UpdateOpportunityModal from "@/app/dashboard/founder/manage_opportunity/UpdateOpportunityModal";
 
 
 const OpportunitiesTable = ({ opportunities }) => {
@@ -29,11 +31,11 @@ const OpportunitiesTable = ({ opportunities }) => {
                                         <Table.Cell>{opportunities.commitment.charAt(0).toUpperCase() + opportunities.commitment.slice(1)}</Table.Cell>
                                         <Table.Cell>${opportunities.minSalary} - ${opportunities.maxSalary}</Table.Cell>
                                         <Table.Cell>{opportunities?.deadline}</Table.Cell>
-                                        <Table.Cell>{opportunities.status.charAt(0).toUpperCase() + opportunities.status.slice(1)}</Table.Cell>
+                                        <Table.Cell>{opportunities?.status.toLowerCase() === "active" ? <p className="text-green-500">Active</p> : <p className="text-red-500">Rejected</p>}</Table.Cell>
                                         <Table.Cell>
                                             <div className='flex gap-2'>
-                                                <Button variant='outline' className=" "><Eye /></Button>
-                                                <Button variant='outline' className=" border border-green-500  text-green-500"><PencilToLine /></Button>
+                                                <Link href={`/opportunities/${opportunities._id}`}><Button variant='outline' className=" border border-gray-500 text-gray-500"><Eye /></Button></Link>
+                                                <UpdateOpportunityModal opportunities={opportunities} />
                                                 <Button variant='outline' className=" border border-red-500 text-red-500"><TrashBin /></Button>
                                             </div>
                                         </Table.Cell>

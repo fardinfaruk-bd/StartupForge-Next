@@ -1,9 +1,19 @@
 import React from 'react';
 
-const MyStartupPage = () => {
+import { getUserSession } from '@/lib/core/session';
+import StartupProfile from './StartupProfile';
+import { getFounderStartup } from '@/lib/api/startup';
+
+const MyStartupPage = async () => {
+
+    const user = await getUserSession();
+    console.log(user);
+    const startup = await getFounderStartup(user?.id);
+    console.log(startup, "founder startup");
+
     return (
         <div>
-            <h1>My Startup</h1>
+            <StartupProfile founder={user} founderStartup={startup}></StartupProfile>
         </div>
     );
 };
