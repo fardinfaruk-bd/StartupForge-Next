@@ -1,6 +1,5 @@
 "use client"
 import { updateOpportunity } from '@/lib/actions/opportunities';
-import { authClient } from '@/lib/auth-client';
 import { PencilToLine } from '@gravity-ui/icons';
 import { Button, FieldError, Input, Label, Modal, Surface, TextField, Select, ListBox, TextArea, Fieldset, Form } from '@heroui/react';
 import { Briefcase, Calendar, Clock, FileText, Folder, LaptopMinimal, MapPin } from 'lucide-react';
@@ -8,10 +7,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-const UpdateOpportunityModal = ({ opportunities }) => {
+const UpdateOpportunityModal = ({ opportunity }) => {
     const [errors, setErrors] = useState({});
-    const [workType, setWorkType] = useState("");
-    const [commitment, setCommitment] = useState("");
     const router = useRouter();
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -69,7 +66,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
             setErrors(newErrors);
             return;
         }
-        const res = await updateOpportunity(data, opportunities._id);
+        const res = await updateOpportunity(data, opportunity._id);
         if (res?.error) {
             toast.error(res.error);
         } else {
@@ -104,7 +101,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                             {/* 1. Role Title */}
                                             <TextField
                                                 isRequired
-                                                defaultValue={opportunities.roleTitle}
+                                                defaultValue={opportunity.roleTitle}
                                                 isInvalid={!!errors.roleTitle}
                                                 className="flex flex-col w-full gap-1.5"
                                             >
@@ -129,7 +126,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                                 <Select
                                                     name="workType"
                                                     placeholder="Select workspace setup"
-                                                    defaultValue={opportunities.workType}
+                                                    defaultValue={opportunity.workType}
                                                     className="w-full"
                                                     aria-label="Work Type"
 
@@ -153,11 +150,11 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                             </div>
 
                                             {/* 3. Conditional Location Field (Hides if remote) */}
-                                            {opportunities.workType !== "remote" && (
+                                            {opportunity.workType !== "remote" && (
                                                 <TextField
                                                     name="location"
-                                                    isRequired={workType !== "" && workType !== "remote"}
-                                                    defaultValue={opportunities.location}
+                                                    isRequired={opportunity.workType !== "" && opportunity.workType !== "remote"}
+                                                    defaultValue={opportunity.location}
                                                     isInvalid={!!errors.location}
                                                     className="flex flex-col w-full gap-1.5 transition-all duration-200"
                                                 >
@@ -183,7 +180,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                                 <Select
                                                     name="commitment"
                                                     placeholder="Select commitment structure"
-                                                    defaultValue={opportunities?.commitment}
+                                                    defaultValue={opportunity?.commitment}
                                                     className="w-full"
                                                     aria-label="Commitment Level"
                                                 >
@@ -207,7 +204,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                             </div>
 
                                             {/* Salary Range Fields */}
-                                            <TextField isRequired defaultValue={opportunities.minSalary} isInvalid={!!errors.minSalary} className="flex flex-col w-full gap-1.5">
+                                            <TextField isRequired defaultValue={opportunity.minSalary} isInvalid={!!errors.minSalary} className="flex flex-col w-full gap-1.5">
                                                 <Label className="text-sm font-medium text-gray-700">Minimum Salary</Label>
                                                 <div className="relative flex items-center">
                                                     <span className="absolute left-3 text-sm font-semibold text-gray-400 z-10">
@@ -224,7 +221,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                                 {errors.minSalary && <FieldError className="text-xs text-red-500">{errors.minSalary}</FieldError>}
                                             </TextField>
 
-                                            <TextField isRequired defaultValue={opportunities.maxSalary} isInvalid={!!errors.maxSalary} className="flex flex-col w-full gap-1.5">
+                                            <TextField isRequired defaultValue={opportunity.maxSalary} isInvalid={!!errors.maxSalary} className="flex flex-col w-full gap-1.5">
                                                 <Label className="text-sm font-medium text-gray-700">Maximum Salary</Label>
                                                 <div className="relative flex items-center">
                                                     <span className="absolute left-3 text-sm font-semibold text-gray-400 z-10">
@@ -242,7 +239,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                             </TextField>
 
                                             {/* 5. Application Deadline */}
-                                            <TextField isRequired defaultValue={opportunities.deadline} isInvalid={!!errors.deadline} className="flex flex-col w-full gap-1.5">
+                                            <TextField isRequired defaultValue={opportunity.deadline} isInvalid={!!errors.deadline} className="flex flex-col w-full gap-1.5">
                                                 <Label className="text-sm font-medium text-gray-700">Deadline</Label>
                                                 <div className="relative flex items-center">
                                                     <span className="absolute left-3 text-gray-400 z-10">
@@ -261,7 +258,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                         </div>
 
                                         {/* Full-Width Details Field */}
-                                        <TextField isRequired defaultValue={opportunities.details} isInvalid={!!errors.details} className="flex flex-col w-full gap-1.5 mt-1">
+                                        <TextField isRequired defaultValue={opportunity.details} isInvalid={!!errors.details} className="flex flex-col w-full gap-1.5 mt-1">
                                             <Label className="text-sm font-medium text-gray-700">Opportunity Details</Label>
                                             <div className="relative flex items-start">
                                                 <span className="absolute left-3 top-3 text-gray-400 z-10">
@@ -278,7 +275,7 @@ const UpdateOpportunityModal = ({ opportunities }) => {
                                         </TextField>
 
                                         {/* 6. Required Skills */}
-                                        <TextField isRequired defaultValue={opportunities.requiredSkills} isInvalid={!!errors.requiredSkills} className="flex flex-col w-full gap-1.5 mt-1">
+                                        <TextField isRequired defaultValue={opportunity.requiredSkills} isInvalid={!!errors.requiredSkills} className="flex flex-col w-full gap-1.5 mt-1">
                                             <Label className="text-sm font-medium text-gray-700">Required Skills</Label>
                                             <div className="relative flex items-start">
                                                 <span className="absolute left-3 top-3 text-gray-400 z-10">

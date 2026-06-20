@@ -25,7 +25,7 @@ export default function OpportunityCard({ opportunity }) {
 
 
   return (
-    <div className="w-full bg-white border border-gray-100 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-sm transition-shadow duration-300">
+    <div className="w-full bg-white shadow-lg border border-gray-200 rounded-2xl p-6 flex flex-col justify-between  hover:shadow-sm hover:shadow-[#76f1cc6a] transition-shadow duration-300">
       <div>
         {/* Top Header Layer: Badges & Expiry */}
         <div className="flex items-center justify-between w-full mb-5">
