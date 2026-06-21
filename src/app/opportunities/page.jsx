@@ -1,12 +1,19 @@
-import OpportunityCard from '@/components/ui/OpportunityCard';
+import OpportunityFiltersContainer from '@/components/opportunities/OpportunityFiltersContainer';
 import { getAllOpportunities } from '@/lib/api/opportunities';
 import React from 'react';
 
-const OpportunitiesPage = async () => {
-    const opportunities = await getAllOpportunities();
-    console.log(opportunities);
+const OpportunitiesPage = async ({ searchParams }) => {
+    const filters = await searchParams;
+
+    const querySearch = new URLSearchParams(filters)
+    const queryString = querySearch.toString();
+    console.log(queryString)
+
+    const { opportunities , total} = await getAllOpportunities(queryString);
+    console.log(opportunities, "from page");
+    
     return (
-        <div className=' max-w-7xl mx-auto'>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="my-10 text-center">
                 <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
                     Discover Your Next Opportunity
@@ -17,11 +24,8 @@ const OpportunitiesPage = async () => {
                     Find the opportunity that matches your skills, goals, and passion.
                 </p>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-                {opportunities.map((opportunity) => (
-                    <OpportunityCard key={opportunity._id} opportunity={opportunity} />
-                ))}
-            </div>
+            
+            <OpportunityFiltersContainer opportunities={opportunities || []} total={total} filters={filters} />
         </div>
     );
 };

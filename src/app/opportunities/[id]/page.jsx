@@ -12,15 +12,17 @@ import {
   SendHorizontal
 } from 'lucide-react';
 import { getOpportunityById } from '@/lib/api/opportunities';
-import Link from 'next/link';
+import { ApplyModal } from './apply';
+import { getUserSession } from '@/lib/core/session';
 
 export default async function OpportunityDetails({ params }) {
   const { id } = await params;
   const opportunity = await getOpportunityById(id);
+  const user = await getUserSession();
   
   if (!opportunity) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <p className="text-gray-500 animate-pulse">Loading opportunity details...</p>
       </div>
     );
@@ -164,7 +166,7 @@ export default async function OpportunityDetails({ params }) {
 
               <div className="text-xs text-gray-400 flex items-center gap-1 justify-center pt-2">
                 <CheckCircle size={14} className="text-green-500" />
-                Verified position via ID: {opportunity.companyId}
+                Verified position via ID: {opportunity.startupId}
               </div>
             </Card.Content>
           </Card>
@@ -172,17 +174,10 @@ export default async function OpportunityDetails({ params }) {
           {/* Apply Interface Widget */}
           <Card className="p-4 border border-blue-100 bg-blue-50/20">
             <Card.Content className="p-0 flex flex-col gap-3">
-              <Button 
-                variant="primary" 
-                color="primary"
-                disabled={isClosed}
-                className={`w-full font-semibold flex bg-purple-600 items-center justify-center gap-2 py-6 text-md ${
-                  isClosed ? 'opacity-50 pointer-events-none' : ''
-                }`}
-              >
+              <ApplyModal opportunity={opportunity} isClosed={isClosed} user={user}>
                 <SendHorizontal size={18} />
                 {isClosed ? 'Applications Closed' : 'Apply For This Position'}
-              </Button>
+              </ApplyModal>
               <p className="text-center text-xs text-gray-400 leading-normal">
                 {isClosed 
                   ? 'This listing is no longer accepting submissions.' 

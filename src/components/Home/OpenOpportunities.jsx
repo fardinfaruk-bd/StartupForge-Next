@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
 import OpportunityCard from "../ui/OpportunityCard";
-import { getAllOpportunities } from "@/lib/api/opportunities";
+import { getOpenOpportunities } from "@/lib/api/opportunities";
 
 export default async function OpenOpportunities() {
-  const opportunities = await getAllOpportunities();
+  const opportunities = await getOpenOpportunities("status=active");
 
   return (
     <section className="w-full bg-[#f0f5ff] py-16 px-6 flex justify-center items-center">

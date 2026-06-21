@@ -13,6 +13,7 @@
     "@gravity-ui/icons": "^2.18.0",
     "@heroui/react": "^3.2.1",
     "@heroui/styles": "^3.2.1",
+    "@supabase/supabase-js": "^2.108.2",
     "better-auth": "^1.6.19",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.21.0",

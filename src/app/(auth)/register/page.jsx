@@ -22,7 +22,7 @@ import AuthLeftUi from "@/components/ui/AuthLeftUi";
 import { toast } from "react-toastify";
 import { signUp } from "@/lib/auth-client";
 
-export default function SignupPage() {
+export default function RegisterPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get("redirect") || "/";
