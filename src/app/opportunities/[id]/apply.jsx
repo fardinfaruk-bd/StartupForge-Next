@@ -16,6 +16,15 @@ export function ApplyModal({ opportunity, isClosed, user }) {
         redirect(`/login?redirect=/opportunities/${opportunity._id}`);
     }
 
+    if(user.role === "founder"){
+        return (
+            <div className="flex items-center justify-center ">
+                <p className="animate-pulse text-rose-500">Founder can not apply for Opportunity.</p>
+            </div>
+        );
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -130,14 +139,14 @@ export function ApplyModal({ opportunity, isClosed, user }) {
                                 <Button slot="close" variant="secondary" type="button" disabled={isSubmitting}>
                                     Cancel
                                 </Button>
-                                <Button type="submit" disabled={isSubmitting} className="min-w-30">
+                                <Button slot="close" type="submit" disabled={isSubmitting} className="min-w-30">
                                     {isSubmitting ? (
                                         <span className="flex items-center gap-1.5">
                                             <Loader2 className="animate-spin size-4" />
                                             Sending...
                                         </span>
                                     ) : (
-                                        "Send Message"
+                                        "Apply"
                                     )}
                                 </Button>
                             </Modal.Footer>
