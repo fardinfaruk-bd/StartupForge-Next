@@ -4,16 +4,15 @@ import { loggedInFounderStartup } from '@/lib/api/startup';
 import { getOpportunity } from '@/lib/api/opportunities';
 import { getUserSession } from '@/lib/core/session';
 import Link from 'next/link';
+import { getPlanById } from '@/lib/api/plans';
 
 const PostOpportunityPage = async () => {
     const user = await getUserSession();
     const startup = await loggedInFounderStartup();
     const myOpportunities = await getOpportunity(user?.id);
 
-    const plan = {
-        name: "Free Tier",
-        maxOpportunities: 3
-    };
+    const plan = await getPlanById(user?.plan || "founder_free");
+    
 
     const usageCount = myOpportunities?.length || 0;
     const isLimitReached = usageCount >= plan.maxOpportunities;

@@ -33,6 +33,26 @@ export default function Navbar() {
         { label: "Browse Opportunities", href: "/opportunities" },
     ];
 
+    const dashboardLinks = {
+        contributor: "/dashboard/contributor",
+        founder: "/dashboard/founder",
+        admin: "/dashboard/admin",
+    }
+
+    if(user?.email){
+        navLinks.push({
+            label: "Dashboard",
+            href: dashboardLinks[user.role || "contributor"],
+        });
+    }
+
+    if(user?.role === "founder"){
+        navLinks.push({
+            label: "Plans",
+            href: "/plans",
+        })
+    }
+
     return (
         <nav className="w-full bg-[#f5f8ff] border-b border-zinc-200 sticky top-0 z-50 px-6 py-3">
             <div className="max-w-7xl mx-auto flex items-center justify-between">

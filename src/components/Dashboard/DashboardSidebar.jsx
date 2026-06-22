@@ -5,10 +5,12 @@ import { Gear, LayoutSideContentLeft, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { LayoutGrid, List, User, Rocket, PlusCircle, Layers, CreditCard, ShieldUser, ArrowLeftRight, User2, LogOut } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "@/lib/auth-client";
 
 export function DashboardSidebar() {
     const pathname = usePathname();
 
+    const { data: session, isPending } = useSession()
     
     const contributorNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/contributor" },
@@ -31,6 +33,14 @@ export function DashboardSidebar() {
         { icon: Rocket, label: "Manage Startups", href: "/dashboard/admin/startups" },
         { icon: CreditCard, label: "Transactions", href: "/dashboard/admin/transactions" },
     ];
+
+
+    const navLinkMap = {
+        contributor: contributorNavItems,
+        founder: founderNavItems,
+        admin: adminNavItems
+    }
+    const navLinks = navLinkMap[session?.user?.role || "contributor"];
 
     const bottomNavItems = [
         { icon: Gear, label: "Settings", href: "/dashboard/settings" },
@@ -79,12 +89,12 @@ export function DashboardSidebar() {
                         StartupForge
                     </h2>
                     <p className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
-                        Collaborator Portal
+                        {session?.user?.role} Portal
                     </p>
                 </div>
 
                 {/* Main Navigation */}
-                <nav className="px-0.5">{renderNavItems(founderNavItems)}</nav>
+                <nav className="px-0.5">{renderNavItems(navLinks)}</nav>
             </div>
 
             {/* Bottom Nav Section */}

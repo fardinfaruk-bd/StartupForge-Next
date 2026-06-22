@@ -94,12 +94,15 @@ export default function RegisterPage() {
                 }
             }
 
+            const plan = role === "founder" ? "founder_free" : "";
+
             const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
                 image: uploadedImageUrl || undefined,
-                role
+                role,
+                plan
             });
 
             if (authError) {

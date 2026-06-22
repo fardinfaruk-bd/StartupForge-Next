@@ -1,11 +1,12 @@
 import OpportunitiesTable from '@/components/Dashboard/OpportunitiesTable';
-import { getCompanyOpportunities } from '@/lib/api/opportunities';
-import { loggedInFounderStartup } from '@/lib/api/startup';
+import { getOpportunity } from '@/lib/api/opportunities';
+
+import { getUserSession } from '@/lib/core/session';
 import React from 'react';
 
 const ManageOpportunityPage = async() => {
-    const startup = await loggedInFounderStartup();   
-    const opportunities = await getCompanyOpportunities(startup?._id, "active");
+    const user = await getUserSession();
+    const opportunities = await getOpportunity(user?.id);
     return (
         <div className='p-4'>
             <h2 className='text-3xl font-bold'>Manage Opportunities</h2>

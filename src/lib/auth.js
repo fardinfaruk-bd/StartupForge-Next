@@ -16,6 +16,9 @@ export const auth = betterAuth({
                 type: "string",
                 required: true, 
                 defaultValue: "contributor",
+            },
+            plan: {
+                default: "founder_free"
             }
         }
     },

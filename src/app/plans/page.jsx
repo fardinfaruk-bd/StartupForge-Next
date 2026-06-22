@@ -18,6 +18,7 @@ export default function FounderPlans() {
   const plans = [
     {
       name: "Free",
+      id: "founder_free",
       price: "$0",
       period: "/forever",
       description: "Perfect for validating your initial startup traction.",
@@ -36,6 +37,7 @@ export default function FounderPlans() {
     },
     {
       name: "Growth",
+      id: "founder_growth",
       price: "$49",
       period: "/mo",
       description: "Scale your core team and track recruitment metrics.",
@@ -55,6 +57,7 @@ export default function FounderPlans() {
     },
     {
       name: "Enterprise",
+      id: "founder_enterprise",
       price: "$149",
       period: "/mo",
       description: "Custom branding and white-glove talent pipeline tools.",
@@ -98,10 +101,10 @@ export default function FounderPlans() {
     <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20 py-24 px-4 sm:px-6 lg:px-8">
       {/* Header Section */}
       <div className="max-w-3xl mx-auto text-center mb-20 flex flex-col items-center">
-        <Chip 
-          variant="flat" 
-          color="primary" 
-          size="sm" 
+        <Chip
+          variant="flat"
+          color="primary"
+          size="sm"
           className="mb-4 font-semibold px-3 py-1"
         >
           Pricing Plans
@@ -117,11 +120,11 @@ export default function FounderPlans() {
       {/* Cards Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-6">
         {plans.map((plan) => (
-          <Card 
-            key={plan.name} 
+          <Card
+            key={plan.name}
             className={`p-6 border-small flex flex-col justify-between transition-all duration-300 ${plan.cardStyles}`}
             radius="2xl"
-            isHoverable={!plan.popular}
+            
           >
             {/* Main Wrapper using simple div container inside Card to handle vertical separation */}
             <div className="flex flex-col justify-between h-full">
@@ -148,11 +151,10 @@ export default function FounderPlans() {
                   <Card.Title className="text-2xl font-bold tracking-tight m-0 p-0">
                     {plan.name}
                   </Card.Title>
-                  <Card.Description className={`text-sm ${
-                    plan.name === "Enterprise" 
-                      ? "text-neutral-400 dark:text-default-500" 
-                      : "text-default-500"
-                  }`}>
+                  <Card.Description className={`text-sm ${plan.name === "Enterprise"
+                    ? "text-neutral-400 dark:text-default-500"
+                    : "text-default-500"
+                    }`}>
                     {plan.description}
                   </Card.Description>
                 </div>
@@ -160,46 +162,42 @@ export default function FounderPlans() {
                 {/* Price Metric */}
                 <div className="flex items-baseline mb-8">
                   <span className="text-5xl font-black tracking-tight">{plan.price}</span>
-                  <span className={`ml-1.5 text-sm font-medium ${
-                    plan.name === "Enterprise" 
-                      ? "text-neutral-400 dark:text-default-500" 
-                      : "text-default-500"
-                  }`}>
+                  <span className={`ml-1.5 text-sm font-medium ${plan.name === "Enterprise"
+                    ? "text-neutral-400 dark:text-default-500"
+                    : "text-default-500"
+                    }`}>
                     {plan.period}
                   </span>
                 </div>
 
                 {/* Content / Technical Core Metrics */}
                 <Card.Content className="p-0 space-y-4">
-                  <div className={`space-y-3 pb-5 border-b ${
-                    plan.name === "Enterprise" 
-                      ? "border-neutral-800 dark:border-default-100" 
-                      : "border-default-100"
-                  }`}>
+                  <div className={`space-y-3 pb-5 border-b ${plan.name === "Enterprise"
+                    ? "border-neutral-800 dark:border-default-100"
+                    : "border-default-100"
+                    }`}>
                     <div className="flex items-center justify-between text-sm">
                       <span className={plan.name === "Enterprise" ? "text-neutral-400 dark:text-default-500" : "text-default-500"}>
                         Active Job Posts
                       </span>
-                      <span className={`font-semibold px-2.5 py-0.5 rounded-lg text-xs ${
-                        plan.name === "Enterprise" 
-                          ? "bg-neutral-800 text-neutral-200 dark:bg-default-100 dark:text-foreground" 
-                          : "bg-default-100 text-foreground"
-                      }`}>
+                      <span className={`font-semibold px-2.5 py-0.5 rounded-lg text-xs ${plan.name === "Enterprise"
+                        ? "bg-neutral-800 text-neutral-200 dark:bg-default-100 dark:text-foreground"
+                        : "bg-default-100 text-foreground"
+                        }`}>
                         {plan.activeJobs}
                       </span>
                     </div>
-                    
+
                     <div className="flex items-center justify-between text-sm">
                       <span className={plan.name === "Enterprise" ? "text-neutral-400 dark:text-default-500" : "text-default-500"}>
                         Analytics Suite
                       </span>
-                      <span className={`font-semibold text-xs px-2.5 py-0.5 rounded-lg ${
-                        plan.analytics === "None" 
-                          ? "text-default-400 bg-default-100/70" 
-                          : plan.analytics.includes("Basic") 
-                            ? "text-primary bg-primary-50 dark:bg-primary-950/30" 
-                            : "text-secondary bg-secondary-50 dark:bg-secondary-950/30"
-                      }`}>
+                      <span className={`font-semibold text-xs px-2.5 py-0.5 rounded-lg ${plan.analytics === "None"
+                        ? "text-default-400 bg-default-100/70"
+                        : plan.analytics.includes("Basic")
+                          ? "text-primary bg-primary-50 dark:bg-primary-950/30"
+                          : "text-secondary bg-secondary-50 dark:bg-secondary-950/30"
+                        }`}>
                         {plan.analytics}
                       </span>
                     </div>
@@ -207,9 +205,8 @@ export default function FounderPlans() {
 
                   {/* Features Checklist */}
                   <div className="space-y-3 pt-2">
-                    <p className={`text-xs font-bold uppercase tracking-widest ${
-                      plan.name === "Enterprise" ? "text-neutral-500 dark:text-default-400" : "text-default-400"
-                    }`}>
+                    <p className={`text-xs font-bold uppercase tracking-widest ${plan.name === "Enterprise" ? "text-neutral-500 dark:text-default-400" : "text-default-400"
+                      }`}>
                       Features Included
                     </p>
                     <ul className="space-y-3">
@@ -219,15 +216,15 @@ export default function FounderPlans() {
                             <Check width={15} height={15} strokeWidth={2.5} />
                           </span>
                           <span className={
-                            plan.name === "Enterprise" 
-                              ? "text-neutral-300 dark:text-default-700" 
+                            plan.name === "Enterprise"
+                              ? "text-neutral-300 dark:text-default-700"
                               : "text-default-700"
                           }>
                             {extra}
                           </span>
                         </li>
                       ))}
-                      
+
                       {plan.name === "Free" && (
                         <li className="flex items-start gap-3 text-sm text-default-400/70 dark:text-default-500 line-through">
                           <span className="text-default-400/70 dark:text-default-500 flex-shrink-0 mt-0.5">
@@ -244,18 +241,20 @@ export default function FounderPlans() {
 
             {/* CTA Button Wrapper */}
             <Card.Footer className="p-0 pt-8 mt-auto">
-              <Button
-                className={`w-full font-bold text-sm tracking-wide shadow-sm h-11 ${
-                  plan.name === "Enterprise" 
-                    ? "bg-white text-black hover:bg-neutral-200 dark:bg-secondary dark:text-white dark:hover:bg-secondary/90" 
-                    : ""
-                }`}
-                color={plan.buttonColor}
-                variant={plan.buttonVariant}
-                radius="xl"
-              >
-                {plan.buttonText}
-              </Button>
+              <div className="w-full">
+                <form action="/api/checkout_sessions" method="POST">
+                <input type="hidden" name="plan_id" value={plan.id} />
+                  <section>
+                    <Button isDisabled={plan.id === "founder_free"} type="submit" role="link" className={`w-full font-bold text-sm tracking-wide shadow-sm h-11 ${plan.name === "Enterprise"
+                      ? "bg-white text-black hover:bg-neutral-200 dark:bg-secondary dark:text-white dark:hover:bg-secondary/90"
+                      : ""
+                      }`}>
+                      {plan.buttonText}
+                    </Button>
+                  </section>
+                </form>
+              </div>
+
             </Card.Footer>
           </Card>
         ))}

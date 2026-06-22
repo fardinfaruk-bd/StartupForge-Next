@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { Button, Table } from "@heroui/react";
-import { Eye, PencilToLine, Pulse, TrashBin } from "@gravity-ui/icons";
+import { Eye } from "@gravity-ui/icons";
 import Link from "next/link";
 import UpdateOpportunityModal from "@/app/dashboard/founder/manage_opportunity/UpdateOpportunityModal";
 import AlertDialogBtn from "../ui/AlertDialog";
-import { ArrowRight, LayoutGrid, Plus } from "lucide-react";
+import { LayoutGrid, Plus } from "lucide-react";
 
 
 const OpportunitiesTable = ({ opportunities }) => {
@@ -30,7 +30,7 @@ const OpportunitiesTable = ({ opportunities }) => {
                                     {opportunities.map((opportunity, index) => (
                                         <Table.Row key={index}>
                                             <Table.Cell>{opportunity.roleTitle}</Table.Cell>
-                                            {opportunity.workType === "remote" ? <Table.Cell>{opportunity?.workType.charAt(0).toUpperCase() + opportunity?.workType.slice(1)}</Table.Cell> : <Table.Cell>{opportunities?.location}</Table.Cell>}
+                                            {opportunity.workType === "remote" ? <Table.Cell>{opportunity?.workType.charAt(0).toUpperCase() + opportunity?.workType.slice(1)}</Table.Cell> : <Table.Cell>{opportunity?.location}</Table.Cell>}
                                             <Table.Cell>{opportunity.commitment.charAt(0).toUpperCase() + opportunity.commitment.slice(1)}</Table.Cell>
                                             <Table.Cell>${opportunity.minSalary} - ${opportunity.maxSalary}</Table.Cell>
                                             <Table.Cell>{opportunity?.deadline}</Table.Cell>
