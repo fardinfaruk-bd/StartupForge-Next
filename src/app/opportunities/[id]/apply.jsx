@@ -50,7 +50,9 @@ export function ApplyModal({ opportunity, isClosed, user }) {
                 Applicant_email: email,
                 Portfolio_link: portfolioLink,
                 applicantId: user.id,
+                startupName: opportunity.startupName,
                 startupId: opportunity.startupId,
+                roleTitle: opportunity.roleTitle,
                 Motivation: motivation,
                 Status: "Pending",
                 OpportunityId: opportunity._id

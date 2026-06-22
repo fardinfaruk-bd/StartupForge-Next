@@ -81,7 +81,7 @@ export default function Navbar() {
                         <div className="flex items-center gap-3">
 
                             {/* FIXED DROPDOWN ANATOMY */}
-                            <h1>Hi! <strong>{user?.name}</strong></h1>
+                            <h1 className="hidden md:block font-semibold text-zinc-700">Hi! <strong>{user?.name}</strong></h1>
                             <Dropdown placement="bottom end">
                                 <Dropdown.Trigger>
                                     <Avatar>
