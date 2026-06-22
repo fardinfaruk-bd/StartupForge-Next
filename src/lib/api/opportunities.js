@@ -21,3 +21,7 @@ export const getOpportunityById = async (id) => {
 export async function getOpenOpportunities( queryString ) {
   return serverFetch(`/api/open/opportunities?${queryString}`);
 }
+
+export const getOpportunity = async (id) => {
+  return serverFetch(`/api/my/opportunities?founderId=${id}`);
+};

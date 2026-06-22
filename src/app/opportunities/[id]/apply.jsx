@@ -23,6 +23,7 @@ export function ApplyModal({ opportunity, isClosed, user }) {
             </div>
         );
     }
+    
 
 
     const handleSubmit = async (e) => {
@@ -48,6 +49,8 @@ export function ApplyModal({ opportunity, isClosed, user }) {
             const formattedData = {
                 Applicant_email: email,
                 Portfolio_link: portfolioLink,
+                applicantId: user.id,
+                startupId: opportunity.startupId,
                 Motivation: motivation,
                 Status: "Pending",
                 OpportunityId: opportunity._id
@@ -56,7 +59,7 @@ export function ApplyModal({ opportunity, isClosed, user }) {
             const res = await ApplyApplication(formattedData)
             
             if(res.insertedId){
-                toast.success("Application logged to console successfully!");
+                toast.success(`Application for ${opportunity.roleTitle} submitted successfully!`);
                 
             }
             

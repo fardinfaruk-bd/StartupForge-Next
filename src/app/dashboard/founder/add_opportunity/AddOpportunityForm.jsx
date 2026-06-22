@@ -8,7 +8,7 @@ import { createOpportunity } from "@/lib/actions/opportunities";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
 
-export default function AddOpportunityForm( { startup } ) {
+export default function AddOpportunityForm( { startup, user } ) {
   const [workType, setWorkType] = useState("");
   const [commitment, setCommitment] = useState("");
   const [errors, setErrors] = useState({});
@@ -77,7 +77,7 @@ export default function AddOpportunityForm( { startup } ) {
       workType,
       commitment
     });
-    const payload = {...data, workType, commitment,status: "active", startupId: startup._id, startupName: startup.name, startupLogo: startup.logo};
+    const payload = {...data, workType, commitment,status: "active", startupId: startup._id, startupName: startup.name, startupLogo: startup.logo, founderId: user.id};
     console.log(payload);
     const res = await createOpportunity(payload);
     if(res.insertedId){
