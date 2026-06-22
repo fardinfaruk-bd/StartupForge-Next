@@ -9,6 +9,7 @@ export const getAllOpportunities = async (queryString) => {
 
 export const getOpportunityById = async (id) => {
   const res = await fetch(`${baseUrl}/api/opportunities/${id}`);
+  console.log(res, "response");
   return res.json();
 };
 

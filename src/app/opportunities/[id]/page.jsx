@@ -14,19 +14,20 @@ import {
 import { getOpportunityById } from '@/lib/api/opportunities';
 import { ApplyModal } from './apply';
 import { getUserSession } from '@/lib/core/session';
+import NotFound from '@/app/not-found';
 
 export default async function OpportunityDetails({ params }) {
   const { id } = await params;
+
   const opportunity = await getOpportunityById(id);
   const user = await getUserSession();
-  
-  if (!opportunity) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <p className="text-gray-500 animate-pulse">Loading opportunity details...</p>
-      </div>
-    );
+  console.log(opportunity);
+
+  if(opportunity.ok === false){
+    return <NotFound />
   }
+  
+  
 
   // Formatting helper for Skills string to badges
   const skillsArray = opportunity.requiredSkills 
