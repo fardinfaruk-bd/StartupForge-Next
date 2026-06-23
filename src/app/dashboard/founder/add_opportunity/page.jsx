@@ -5,6 +5,8 @@ import { getOpportunity } from '@/lib/api/opportunities';
 import { getUserSession } from '@/lib/core/session';
 import Link from 'next/link';
 import { getPlanById } from '@/lib/api/plans';
+import { LayoutGrid, Plus } from 'lucide-react';
+import { Button } from '@heroui/react';
 
 const PostOpportunityPage = async () => {
     const user = await getUserSession();
@@ -12,6 +14,21 @@ const PostOpportunityPage = async () => {
     const myOpportunities = await getOpportunity(user?.id);
 
     const plan = await getPlanById(user?.plan || "founder_free");
+
+
+    if (!startup?._id) {
+        return (
+          <div className="min-h-[40vh] bg-gray-200 flex flex-col items-center justify-center mx-10 mt-10 rounded-lg">
+            <Plus size={100} />
+            <h1 className="text-3xl font-bold">No Application</h1>
+            <p className="text-gray-500">Please apply for an opportunity First</p>
+            <div className="flex gap-5 mt-5">
+              <Link href="/dashboard/founder/startup"><Button variant="primary" className="bg-[#0a1220] text-slate-400 font-bold"><Plus />Add Startup</Button></Link>
+              <Link href="/dashboard/founder"><Button variant="outline" className="border-2 border-[#0a1220] "><LayoutGrid /> Go Overview</Button></Link>
+            </div>
+          </div>
+        )
+      }
     
 
     const usageCount = myOpportunities?.length || 0;

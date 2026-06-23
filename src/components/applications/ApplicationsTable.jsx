@@ -3,8 +3,6 @@ import React from "react";
 import { Button, Chip, Table } from "@heroui/react";
 import { Eye } from "@gravity-ui/icons";
 import Link from "next/link";
-import UpdateOpportunityModal from "@/app/dashboard/founder/manage_opportunity/UpdateOpportunityModal";
-import AlertDialogBtn from "../ui/AlertDialog";
 import { LayoutGrid, Plus } from "lucide-react";
 
 
@@ -57,11 +55,11 @@ const OpportunitiesTable = ({ applications }) => {
                     </Table>)
                     : <div className="min-h-[40vh] bg-gray-200 flex flex-col items-center justify-center rounded-lg">
                         <Plus size={100} />
-                        <h1 className="text-3xl font-bold">No Opportunities</h1>
-                        <p className="text-gray-500">Please create an opportunity to get started</p>
+                        <h1 className="text-3xl font-bold">No Application</h1>
+                        <p className="text-gray-500">Please apply for an opportunity First</p>
                         <div className="flex gap-5 mt-5">
-                            <Link href="/dashboard/founder/add_opportunity"><Button variant="primary" className="bg-[#0a1220] text-slate-400 font-bold"><Plus /> Create Opportunity</Button></Link>
-                            <Link href="/dashboard/founder"><Button variant="outline" className="border-2 border-[#0a1220] "><LayoutGrid /> Go Overview</Button></Link>
+                            <Link href="/opportunity"><Button variant="primary" className="bg-[#0a1220] text-slate-400 font-bold"><Eye />View Opportunities</Button></Link>
+                            <Link href="/dashboard/contributor"><Button variant="outline" className="border-2 border-[#0a1220] "><LayoutGrid /> Go Overview</Button></Link>
                         </div>
                     </div>
                 }

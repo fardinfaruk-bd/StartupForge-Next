@@ -1,20 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import {Form, Fieldset, TextField, Input, TextArea, Select, Label, ListBox, Button, FieldError} from "@heroui/react";
+import { Form, Fieldset, TextField, Input, TextArea, Select, Label, ListBox, Button, FieldError } from "@heroui/react";
 import { Briefcase, Folder, Clock, Calendar, MapPin } from "@gravity-ui/icons";
-import { LaptopMinimal, FileText } from "lucide-react";
+import { LaptopMinimal, FileText, Plus, LayoutGrid } from "lucide-react";
 import { createOpportunity } from "@/lib/actions/opportunities";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
-export default function AddOpportunityForm( { startup, user } ) {
+export default function AddOpportunityForm({ startup, user }) {
   const [workType, setWorkType] = useState("");
   const [commitment, setCommitment] = useState("");
   const [errors, setErrors] = useState({});
-  
 
-  const handleSubmit = async(e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -77,15 +78,15 @@ export default function AddOpportunityForm( { startup, user } ) {
       workType,
       commitment
     });
-    const payload = {...data, workType, commitment,status: "active", startupId: startup._id, startupName: startup.name, startupLogo: startup.logo, founderId: user.id};
+    const payload = { ...data, workType, commitment, status: "active", startupId: startup._id, startupName: startup.name, startupLogo: startup.logo, founderId: user.id };
     console.log(payload);
     const res = await createOpportunity(payload);
-    if(res.insertedId){
+    if (res.insertedId) {
       toast.success("Opportunity Created Successfully");
       e.target.reset();
       redirect("/dashboard/founder/manage_opportunity");
     }
-    
+
 
     // Clear all errors and reset states upon successful pass
     setErrors({});
@@ -108,7 +109,7 @@ export default function AddOpportunityForm( { startup, user } ) {
           <div className="mt-4 inline-flex items-center gap-2  border border-gray-200 rounded-lg px-3 py-1.5 text-xs ">
             <Briefcase size={14} className="text-zinc-500" />
             Posting as: <span className="font-semibold">{startup.name}</span>
-            <span className="text-emerald-500 font-medium px-1.5 py-0.5 rounded border border-emerald-900/50">Approved</span>
+            <span className="text-emerald-500 font-medium px-1.5 py-0.5 rounded border border-emerald-900/50">{startup.status}</span>
           </div>
         </div>
         <button
