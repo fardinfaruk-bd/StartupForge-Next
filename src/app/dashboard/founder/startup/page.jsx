@@ -9,7 +9,6 @@ const MyStartupPage = async () => {
     const user = await getUserSession();
     console.log(user);
     const startup = await getFounderStartup(user?.id);
-    console.log(startup, "founder startup");
 
     return (
         <div>
