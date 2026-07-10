@@ -102,7 +102,7 @@ const PostOpportunityPage = async () => {
                         {!isLimitReached && (
                             <p className="text-xs text-slate-500">
                                 Need to post more?{' '}
-                                <Link href="/plan" className="font-medium text-indigo-600 hover:text-indigo-500 underline underline-offset-2">
+                                <Link href="/plans" className="font-medium text-indigo-600 hover:text-indigo-500 underline underline-offset-2">
                                     Explore paid plans
                                 </Link>
                             </p>

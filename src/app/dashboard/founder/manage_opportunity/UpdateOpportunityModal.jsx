@@ -67,6 +67,7 @@ const UpdateOpportunityModal = ({ opportunity }) => {
             return;
         }
         const res = await updateOpportunity(data, opportunity._id);
+        console.log("Update Opportunity Response:", res);
         if (res?.error) {
             toast.error(res.error);
         } else {

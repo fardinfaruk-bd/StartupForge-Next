@@ -55,7 +55,8 @@ export function ApplyModal({ opportunity, isClosed, user }) {
                 roleTitle: opportunity.roleTitle,
                 Motivation: motivation,
                 Status: "Pending",
-                OpportunityId: opportunity._id
+                OpportunityId: opportunity._id,
+                founderId: opportunity.founderId,
             }
 
             const res = await ApplyApplication(formattedData)

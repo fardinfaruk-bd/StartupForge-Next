@@ -1,12 +1,12 @@
 
 import React from 'react';
 import { Card, Button } from '@heroui/react';
-import { 
-  Briefcase, 
-  Clock, 
-  MapPin, 
-  Coins, 
-  Calendar, 
+import {
+  Briefcase,
+  Clock,
+  MapPin,
+  Coins,
+  Calendar,
   ArrowLeft,
   CheckCircle,
   SendHorizontal
@@ -15,6 +15,7 @@ import { getOpportunityById } from '@/lib/api/opportunities';
 import { ApplyModal } from './apply';
 import { getUserSession } from '@/lib/core/session';
 import NotFound from '@/app/not-found';
+import Link from 'next/link';
 
 export default async function OpportunityDetails({ params }) {
   const { id } = await params;
@@ -23,15 +24,15 @@ export default async function OpportunityDetails({ params }) {
   const user = await getUserSession();
   console.log(opportunity);
 
-  if(opportunity.ok === false){
+  if (opportunity.ok === false) {
     return <NotFound />
   }
-  
-  
+
+
 
   // Formatting helper for Skills string to badges
-  const skillsArray = opportunity.requiredSkills 
-    ? opportunity.requiredSkills.split(',').map(skill => skill.trim()) 
+  const skillsArray = opportunity.requiredSkills
+    ? opportunity.requiredSkills.split(',').map(skill => skill.trim())
     : [];
 
   const targetId = opportunity._id?.$oid || id;
@@ -39,23 +40,23 @@ export default async function OpportunityDetails({ params }) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 p-4">
-      
+
       {/* Top Navigation Row */}
       <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-        <Button 
-          
-          href="/dashboard/opportunities"
-          variant="ghost" 
-          className="flex items-center gap-2 text-gray-600 hover:text-black"
-        >
-          <ArrowLeft size={16} />
-          Back to list
-        </Button>
+        <Link href="/opportunities">
+          <Button
+            variant="ghost"
+            className="flex items-center gap-2 text-gray-600 hover:text-black"
+          >
+            <ArrowLeft size={16} />
+            Back to list
+          </Button>
+        </Link>
       </div>
 
       {/* Main Layout Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
+
         {/* Left 2 Columns: Role Content details */}
         <div className="md:col-span-2 space-y-6">
           <Card className="p-6">
@@ -64,15 +65,14 @@ export default async function OpportunityDetails({ params }) {
                 <h1 className="text-3xl font-extrabold text-gray-900">
                   {opportunity.roleTitle}
                 </h1>
-                <span className={`px-2.5 py-1 text-xs font-semibold rounded-full capitalize ${
-                  opportunity.status === 'active' 
-                    ? 'bg-green-100 text-green-700' 
+                <span className={`px-2.5 py-1 text-xs font-semibold rounded-full capitalize ${opportunity.status === 'active'
+                    ? 'bg-green-100 text-green-700'
                     : 'bg-red-100 text-red-700'
-                }`}>
+                  }`}>
                   {opportunity.status}
                 </span>
               </div>
-              
+
               <div className="flex flex-wrap gap-4 text-sm text-gray-500 mt-2">
                 <div className="flex items-center gap-1">
                   <MapPin size={16} className="text-gray-400" />
@@ -101,8 +101,8 @@ export default async function OpportunityDetails({ params }) {
                 <h3 className="text-lg font-bold text-gray-800 mb-3">Required Core Competencies</h3>
                 <div className="flex flex-wrap gap-2">
                   {skillsArray.map((skill, index) => (
-                    <span 
-                      key={index} 
+                    <span
+                      key={index}
                       className="px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 font-medium text-sm rounded-lg"
                     >
                       {skill}
@@ -116,14 +116,14 @@ export default async function OpportunityDetails({ params }) {
 
         {/* Right 1 Column: Key Metrics Sidebar & Apply Action Area */}
         <div className="space-y-4">
-          
+
           {/* Metadata Card */}
           <Card className="p-6 bg-gray-50/50 border border-gray-100">
             <Card.Header className="p-0 pb-3">
               <Card.Title className="text-md font-bold text-gray-700">Role Metadata</Card.Title>
             </Card.Header>
             <Card.Content className="p-0 space-y-4">
-              
+
               {/* Salary Bracket */}
               <div className="flex items-start gap-3">
                 <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
@@ -132,7 +132,7 @@ export default async function OpportunityDetails({ params }) {
                 <div>
                   <div className="text-xs text-gray-400 font-medium">Estimated Compensation</div>
                   <div className="text-sm font-bold text-gray-800">
-                    ${opportunity.minSalary}k – ${opportunity.maxSalary}k / year
+                    ${opportunity.minSalary} – ${opportunity.maxSalary} / month
                   </div>
                 </div>
               </div>
@@ -180,8 +180,8 @@ export default async function OpportunityDetails({ params }) {
                 {isClosed ? 'Applications Closed' : 'Apply For This Position'}
               </ApplyModal>
               <p className="text-center text-xs text-gray-400 leading-normal">
-                {isClosed 
-                  ? 'This listing is no longer accepting submissions.' 
+                {isClosed
+                  ? 'This listing is no longer accepting submissions.'
                   : 'Your profile baseline data will be safely shared with the managing founder team.'
                 }
               </p>
