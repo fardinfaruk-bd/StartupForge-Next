@@ -30,7 +30,7 @@ export default function OpportunityFilters({
                             </InputGroup.Prefix>
                             <InputGroup.Input
                                 placeholder="Title, Startup, or keywords..."
-                                className="bg-transparent text-white placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
+                                className="bg-transparent placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
                             />
                         </InputGroup>
                     </TextField>

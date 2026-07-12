@@ -10,13 +10,7 @@ export const createStartup = async (newStartupData) => {
 
 export const updateStartup = async (newStartupData, _id) => {
 
-  const res = await fetch(`${baseUrl}/api/startup/${_id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newStartupData),
-  });
+  const res = await serverMutation(`/api/startup/${_id}`, newStartupData, 'PATCH');
 
   if (!res.ok) {
     return { error: `Server error: ${res.status}` };

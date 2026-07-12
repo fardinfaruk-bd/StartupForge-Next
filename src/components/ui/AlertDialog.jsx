@@ -8,27 +8,35 @@ import { toast } from 'react-toastify';
 
 const AlertDialogBtn = ({ opportunity }) => {
     const router = useRouter();
+    
     const handleDelete = async () => {
         const res = await deleteOpportunity(opportunity._id);
         if (res?.error) {
             toast.error(res.error);
         } else {
-            toast.success("Opportunity updated successfully");
+            toast.success("Opportunity deleted successfully"); // Fixed text
             router.refresh();
         }
-
-    }
+    };
 
     return (
-        <AlertDialog >
-            <Button variant='outline' className={"border border-red-500 text-red-500"}><TrashBin /></Button>
+        <AlertDialog>
+            {/* FIX: Wrapped the button in a Trigger component */}
+            <AlertDialog.Trigger>
+                <Button variant='outline' className="border border-red-500 text-red-500">
+                    <TrashBin />
+                </Button>
+            </AlertDialog.Trigger>
+
             <AlertDialog.Backdrop>
                 <AlertDialog.Container>
                     <AlertDialog.Dialog className="sm:max-w-100">
                         <AlertDialog.CloseTrigger />
                         <AlertDialog.Header>
                             <AlertDialog.Icon status="danger" />
-                            <AlertDialog.Heading>Delete opportunity {opportunity.roleTitle} permanently?</AlertDialog.Heading>
+                            <AlertDialog.Heading>
+                                Delete opportunity {opportunity.roleTitle} permanently?
+                            </AlertDialog.Heading>
                         </AlertDialog.Header>
                         <AlertDialog.Body>
                             <p>
@@ -47,7 +55,7 @@ const AlertDialogBtn = ({ opportunity }) => {
                     </AlertDialog.Dialog>
                 </AlertDialog.Container>
             </AlertDialog.Backdrop>
-        </AlertDialog >
+        </AlertDialog>
     );
 };
 

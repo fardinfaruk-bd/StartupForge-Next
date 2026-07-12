@@ -9,13 +9,15 @@ import {
   Calendar,
   ArrowLeft,
   CheckCircle,
-  SendHorizontal
+  SendHorizontal,
+  Building
 } from 'lucide-react';
 import { getOpportunityById } from '@/lib/api/opportunities';
 import { ApplyModal } from './apply';
 import { getUserSession } from '@/lib/core/session';
 import NotFound from '@/app/not-found';
 import Link from 'next/link';
+
 
 export default async function OpportunityDetails({ params }) {
   const { id } = await params;
@@ -66,14 +68,18 @@ export default async function OpportunityDetails({ params }) {
                   {opportunity.roleTitle}
                 </h1>
                 <span className={`px-2.5 py-1 text-xs font-semibold rounded-full capitalize ${opportunity.status === 'active'
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-red-100 text-red-700'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
                   }`}>
                   {opportunity.status}
                 </span>
               </div>
 
               <div className="flex flex-wrap gap-4 text-sm text-gray-500 mt-2">
+                <div className="flex items-center gap-1 font-bold">
+                  <Building size={16} className="inline-block mr-1 text-gray-400" />
+                  {opportunity.startupName}
+                </div>
                 <div className="flex items-center gap-1">
                   <MapPin size={16} className="text-gray-400" />
                   {opportunity.location ? opportunity.location : 'N/A'}
