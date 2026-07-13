@@ -7,7 +7,7 @@ import { getFounderStartup } from '@/lib/api/startup';
 const MyStartupPage = async () => {
 
     const user = await getUserSession();
-    console.log(user);
+    
     const startup = await getFounderStartup(user?.id);
 
     return (

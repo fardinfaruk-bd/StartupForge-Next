@@ -5,7 +5,8 @@ import { getOpportunity } from '@/lib/api/opportunities';
 import { getUserSession } from '@/lib/core/session';
 import Link from 'next/link';
 import { getPlanById } from '@/lib/api/plans';
-import { LayoutGrid, Plus } from 'lucide-react';
+// Added Clock icon here
+import { LayoutGrid, Plus, Clock } from 'lucide-react'; 
 import { Button } from '@heroui/react';
 
 const PostOpportunityPage = async () => {
@@ -15,7 +16,7 @@ const PostOpportunityPage = async () => {
 
     const plan = await getPlanById(user?.plan || "founder_free");
 
-
+    // 1. Check if startup data exists at all
     if (!startup?._id) {
         return (
           <div className="min-h-[40vh] bg-gray-200 flex flex-col items-center justify-center mx-10 mt-10 rounded-lg">
@@ -28,9 +29,30 @@ const PostOpportunityPage = async () => {
             </div>
           </div>
         )
-      }
-    
+    }
 
+    // 2. Added Validation: Check if startup status is pending
+    if (startup.status === 'Pending') {
+        return (
+          <div className="min-h-[50vh] bg-slate-50 border border-slate-200 flex flex-col items-center justify-center mx-4 md:mx-10 mt-10 p-8 rounded-xl text-center shadow-sm">
+            <div className="relative flex items-center justify-center w-24 h-24 rounded-full bg-amber-50 text-amber-500 mb-6 animate-pulse">
+              <Clock size={48} strokeWidth={1.5} />
+            </div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">
+              Your Startup is Under Review
+            </h1>
+            <p className="text-slate-500 max-w-sm mb-6">
+              Please wait while our team reviews your application details. You will be able to post opportunities as soon as your startup is approved.
+            </p>
+            <Link href="/dashboard/founder">
+              <Button className="border-2 border-[#0a1220] text-[#0a1220] font-semibold bg-transparent hover:bg-slate-100">
+                <LayoutGrid size={18} /> Go to Overview
+              </Button>
+            </Link>
+          </div>
+        )
+    }
+    
     const usageCount = myOpportunities?.length || 0;
     const isLimitReached = usageCount >= plan.maxOpportunities;
     const usagePercentage = Math.min((usageCount / plan.maxOpportunities) * 100, 100);
@@ -69,9 +91,7 @@ const PostOpportunityPage = async () => {
                             </Link>
                         </div>
                     ) : (
-
                         <AddOpportunityForm startup={startup} user={user} />
-
                     )}
                 </div>
 

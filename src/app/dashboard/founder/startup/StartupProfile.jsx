@@ -20,7 +20,7 @@ import { useRouter } from 'next/navigation';
 import { Building } from 'lucide-react';
 import EditProfileForm from '@/components/ui/EditProfileForm';
 
-// Layout Shared Style Constants matching your design image
+
 const textInputClass = "w-full bg-zinc-900/50 border border-zinc-800 text-white rounded-lg px-3 py-2.5 outline-none placeholder:text-zinc-600 focus:border-zinc-700 transition";
 const selectBoxClass = "w-full flex flex-col gap-1";
 const triggerClasses = "w-full bg-zinc-900/50 border border-zinc-800 text-white rounded-lg px-3 py-2.5 flex items-center justify-between outline-none data-[hover=true]:border-zinc-700";

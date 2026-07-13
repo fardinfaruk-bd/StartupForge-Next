@@ -2,23 +2,23 @@
 
 import React from 'react';
 import { Table, Button } from '@heroui/react';
-import { Check, X } from 'lucide-react';
 import { updateApplicationStatus } from '@/lib/actions/applications';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 const ApplicationTable = ({ data = [] }) => {
 
-  const handleHire = async(id) => {
-    const res = await updateApplicationStatus(id, {status: "accepted"});
-    if(res.modifiedCount > 0) {
+  const handleHire = async (id) => {
+    const res = await updateApplicationStatus(id, { status: "accepted" });
+    if (res.modifiedCount > 0) {
       toast.success(`Application has been accepted.`);
     }
   };
 
   const handleReject = async (id) => {
     console.log(`Rejecting applicant for application ID: ${id}`);
-    const res = await updateApplicationStatus(id, {status: 'rejected'});
-    if(res.modifiedCount > 0) {
+    const res = await updateApplicationStatus(id, { status: 'rejected' });
+    if (res.modifiedCount > 0) {
       toast.success(`Application has been rejected.`);
     }
   };
@@ -47,16 +47,16 @@ const ApplicationTable = ({ data = [] }) => {
             </Table.Column>
             <Table.Column className="text-small font-semibold">Startup</Table.Column>
             <Table.Column className="text-small font-semibold">Role Title</Table.Column>
+            <Table.Column className="text-small font-semibold">Portfolio</Table.Column>
             <Table.Column className="text-small font-semibold">Status</Table.Column>
             <Table.Column align="center" className="text-small font-semibold">Actions</Table.Column>
           </Table.Header>
-          
-          {/* FIX: Explicitly closed with Table.Body instead of TableBody */}
+
           <Table.Body emptyContent={"No applications to display."}>
             {data.map((app) => {
               const appId = app._id?.$oid || app._id;
               const statusBadgeStyles = getStatusStyles(app.Status);
-              
+
               return (
                 <Table.Row key={appId} className="hover:bg-default-50 transition-colors">
                   <Table.Cell>
@@ -64,13 +64,22 @@ const ApplicationTable = ({ data = [] }) => {
                   </Table.Cell>
                   <Table.Cell className="text-default-600">{app.startupName}</Table.Cell>
                   <Table.Cell className="text-default-600">{app.roleTitle}</Table.Cell>
-                  
+                  <Table.Cell className="text-default-600">
+                    {app?.Portfolio_link ? (
+                      <Link href={app.Portfolio_link} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-500 ">
+                        Link
+                      </Link>
+                    ) : (
+                      <span className="text-default-400">No Link</span>
+                    )}
+                  </Table.Cell>
+
                   <Table.Cell>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize tracking-wide ${statusBadgeStyles}`}>
                       {app.Status}
                     </span>
                   </Table.Cell>
-                  
+
                   <Table.Cell>
                     <div className="flex items-center gap-2 justify-center">
                       {app.Status?.toLowerCase() !== 'accepted' && app.Status?.toLowerCase() !== 'hired' && (
@@ -93,6 +102,7 @@ const ApplicationTable = ({ data = [] }) => {
                           Reject
                         </Button>
                       )}
+                      
                     </div>
                   </Table.Cell>
                 </Table.Row>
