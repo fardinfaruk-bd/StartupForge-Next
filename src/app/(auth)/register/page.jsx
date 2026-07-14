@@ -95,6 +95,7 @@ export default function RegisterPage() {
             }
 
             const plan = role === "founder" ? "founder_free" : "";
+            const status = "active"; // Default status for new users
 
             const { data, error: authError } = await signUp.email({
                 email,
@@ -102,7 +103,8 @@ export default function RegisterPage() {
                 name,
                 image: uploadedImageUrl || undefined,
                 role,
-                plan
+                plan,
+                status
             });
 
             if (authError) {
