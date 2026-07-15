@@ -5,6 +5,18 @@ import { Eye } from "@gravity-ui/icons";
 import Link from "next/link";
 import { LayoutGrid, Plus } from "lucide-react";
 
+const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString; 
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+};
 
 const OpportunitiesTable = ({ applications }) => {
 
@@ -20,14 +32,14 @@ const OpportunitiesTable = ({ applications }) => {
                                     <Table.Column>Startup Name</Table.Column>
                                     <Table.Column>Applied Date</Table.Column>
                                     <Table.Column>Status</Table.Column>
-
                                 </Table.Header>
                                 <Table.Body>
                                     {applications.map((application, index) => (
                                         <Table.Row key={index}>
                                             <Table.Cell>{application?.roleTitle}</Table.Cell>
                                             <Table.Cell>{application?.startupName}</Table.Cell>
-                                            <Table.Cell>{application?.applied_at}</Table.Cell>
+                                            {/* Date transformation applied here */}
+                                            <Table.Cell>{formatDate(application?.applied_at)}</Table.Cell>
                                             <Table.Cell>
                                                 {(() => {
                                                     const status = application?.Status?.toLowerCase();

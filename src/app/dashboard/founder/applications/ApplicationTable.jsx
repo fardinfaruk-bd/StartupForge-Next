@@ -9,7 +9,7 @@ import Link from 'next/link';
 const ApplicationTable = ({ data = [] }) => {
 
   const handleHire = async (id) => {
-    const res = await updateApplicationStatus(id, { status: "accepted" });
+    const res = await updateApplicationStatus(id, { status: "accepted"});
     if (res.modifiedCount > 0) {
       toast.success(`Application has been accepted.`);
     }

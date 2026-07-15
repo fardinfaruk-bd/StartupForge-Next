@@ -16,12 +16,7 @@ export default async function ContributorApplicationPage() {
         
         {/* Header Block Section */}
         <div className="flex flex-col items-start space-y-3">
-          <Chip 
-            variant="flat" 
-            className=" text-blue-400 border border-blue-800/60 font-semibold px-2.5 py-1 text-xs"
-          >
-            Workspace Manifest
-          </Chip>
+          
           <h1 className="text-3xl font-black tracking-tight sm:text-4xl ">
             Contributor Applications
           </h1>
