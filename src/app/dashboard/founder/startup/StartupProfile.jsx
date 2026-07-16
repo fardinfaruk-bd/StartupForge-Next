@@ -184,7 +184,7 @@ export default function StartupProfile({ founder, founderStartup }) {
                             <div className="flex items-center gap-3">
                                 <h1 className="text-2xl font-bold text-white">{startup.name}</h1>
                                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium border ${getStatusStyles(startup.status)}`}>
-                                    {startup.status}
+                                    {startup.status.charAt(0).toUpperCase() + startup.status.slice(1) || "N/A"}
                                 </span>
                             </div>
                             <a href={startup.websiteUrl} target="_blank" rel="noreferrer" className="text-sm text-zinc-400 hover:underline flex items-center gap-1 mt-1">

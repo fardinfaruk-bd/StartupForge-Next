@@ -18,3 +18,9 @@ export const updateStartup = async (newStartupData, _id) => {
   revalidatePath('/dashboard/founder/startup');
   return res.json();
 };
+
+export const updateStartupStatus = async (id, data) => {
+  const result = await serverMutation(`/api/startup/status/${id}`, data, "PATCH");
+  revalidatePath("/dashboard/admin/startups");
+  return result.json();
+};

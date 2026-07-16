@@ -109,7 +109,7 @@ export default function AddOpportunityForm({ startup, user }) {
           <div className="mt-4 inline-flex items-center gap-2  border border-gray-200 rounded-lg px-3 py-1.5 text-xs ">
             <Briefcase size={14} className="text-zinc-500" />
             Posting as: <span className="font-semibold">{startup.name}</span>
-            <span className="text-emerald-500 font-medium px-1.5 py-0.5 rounded border border-emerald-900/50">{startup.status}</span>
+            <span className="text-emerald-500 font-medium px-1.5 py-0.5 rounded border border-emerald-900/50">{startup.status.charAt(0).toUpperCase() + startup.status.slice(1) || "N/A"}</span>
           </div>
         </div>
         <button
