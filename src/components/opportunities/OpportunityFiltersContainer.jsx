@@ -2,27 +2,24 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {  Pagination } from '@heroui/react';
-import { Magnifier  } from '@gravity-ui/icons';
+import { Pagination } from '@heroui/react';
+import { Magnifier } from '@gravity-ui/icons';
 import OpportunityCard from '../ui/OpportunityCard';
-import OpportunityFilters from './OpportunityFilter';
 
-export default function OpportunityFiltersContainer({ opportunities, total, filters }) {
+export default function OpportunityPaginationContainer({ opportunities, total, filters }) {
   const router = useRouter();
 
   const normalizeFilter = (value, fallback) =>
     Array.isArray(value) ? value[0] || fallback : value || fallback;
 
-  const [searchQuery, setSearchQuery] = useState(normalizeFilter(filters.search, ""));
-  const [selectedWorkType, setSelectedWorkType] = useState(normalizeFilter(filters.workType, "all"));
-  const [selectedCommitment, setSelectedCommitment] = useState(normalizeFilter(filters.commitment, "all"));
+  // Track page state only
   const [page, setPage] = useState(Number(normalizeFilter(filters.page, 1)));
-
 
   const totalItems = total;
   const itemsPerPage = 12;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  // Pagination page layout logic
   const getPageNumbers = () => {
     if (totalPages <= 1) {
       return totalPages === 1 ? [1] : [];
@@ -53,51 +50,26 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
 
     return pages;
   };
-  console.log(opportunities, "from filter");
-
 
   const startItem = (page - 1) * itemsPerPage + 1;
   const endItem = Math.min(page * itemsPerPage, totalItems);
 
-
+  // Sync pagination state back to the server component layout
   useEffect(() => {
     const sp = new URLSearchParams();
 
-    if (searchQuery) {
-      sp.set('search', searchQuery);
-    }
-
-    if (selectedWorkType !== "all") {
-      sp.set('workType', selectedWorkType);
-    }
-
-    if (selectedCommitment !== "all") {
-      sp.set('commitment', selectedCommitment);
-    }
     if (page) {
       sp.set('page', page);
     }
 
-    console.log("search", sp.toString());
     const path = `?${sp.toString()}`;
     router.push(path);
-
-
-  }, [router, selectedWorkType, selectedCommitment, searchQuery, page]);
+  }, [router, page]);
 
   return (
     <>
-      <OpportunityFilters
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        selectedWorkType={selectedWorkType}
-        setSelectedWorkType={setSelectedWorkType}
-        selectedCommitment={selectedCommitment}
-        setSelectedCommitment={setSelectedCommitment}
-      />
-
-      {/* Item Metrics Counter */}
-      <div className="text-sm text-slate-500 font-medium pl-1">
+      {/* Simple Items Count Label */}
+      <div className="text-sm text-slate-500 font-medium pl-1 mb-4">
         Showing <span className="text-slate-800 font-semibold">{opportunities.length}</span> {opportunities.length === 1 ? 'opportunity' : 'opportunities'}
       </div>
 
@@ -109,48 +81,52 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
               <OpportunityCard key={opportunity._id} opportunity={opportunity} />
             ))}
           </div>
-          {totalPages > 1 && (
-          <Pagination className="w-full my-10">
-            <Pagination.Summary>
-              Showing {startItem}-{endItem} of {totalItems} results
-            </Pagination.Summary>
-            <Pagination.Content>
-              <Pagination.Item>
-                <Pagination.Previous isDisabled={page === 1} onPress={() => setPage((p) => p - 1)}>
-                  <Pagination.PreviousIcon />
-                  <span>Previous</span>
-                </Pagination.Previous>
-              </Pagination.Item>
-              {getPageNumbers().map((p, i) =>
-                p === "ellipsis" ? (
-                  <Pagination.Item key={`ellipsis-${i}`}>
-                    <Pagination.Ellipsis />
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Item key={p}>
-                    <Pagination.Link isActive={p === page} onPress={() => setPage(p)}>
-                      {p}
-                    </Pagination.Link>
-                  </Pagination.Item>
-                ),
-              )}
-              <Pagination.Item>
-                <Pagination.Next isDisabled={page === totalPages} onPress={() => setPage((p) => p + 1)}>
-                  <span>Next</span>
-                  <Pagination.NextIcon />
-                </Pagination.Next>
-              </Pagination.Item>
-            </Pagination.Content>
-          </Pagination>
-          )}
 
+          {/* Conditional Pagination Navigation Controls */}
+          {totalPages > 1 && (
+            <Pagination className="w-full my-10">
+              <Pagination.Summary>
+                Showing {startItem}-{endItem} of {totalItems} results
+              </Pagination.Summary>
+              <Pagination.Content>
+                <Pagination.Item>
+                  <Pagination.Previous isDisabled={page === 1} onPress={() => setPage((p) => p - 1)}>
+                    <Pagination.PreviousIcon />
+                    <span>Previous</span>
+                  </Pagination.Previous>
+                </Pagination.Item>
+                
+                {getPageNumbers().map((p, i) =>
+                  p === "ellipsis" ? (
+                    <Pagination.Item key={`ellipsis-${i}`}>
+                      <Pagination.Ellipsis />
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Item key={p}>
+                      <Pagination.Link isActive={p === page} onPress={() => setPage(p)}>
+                        {p}
+                      </Pagination.Link>
+                    </Pagination.Item>
+                  ),
+                )}
+
+                <Pagination.Item>
+                  <Pagination.Next isDisabled={page === totalPages} onPress={() => setPage((p) => p + 1)}>
+                    <span>Next</span>
+                    <Pagination.NextIcon />
+                  </Pagination.Next>
+                </Pagination.Item>
+              </Pagination.Content>
+            </Pagination>
+          )}
         </>
       ) : (
-        <div className="text-center py-16 border-2 border-dashed border-slate-200 rounded-xl  bg-slate-50/50 max-w-xl mx-auto my-6">
+        /* Empty Fallback Screen */
+        <div className="text-center py-16 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 max-w-xl mx-auto my-6">
           <Magnifier className="mx-auto text-slate-300 text-4xl mb-3" />
-          <p className="text-slate-600 font-medium text-lg">No results found</p>
+          <p className="text-slate-600 font-medium text-lg">No opportunities found</p>
           <p className="text-slate-400 text-sm mt-1 max-w-xs mx-auto">
-            Try adjusting your keywords or clearing the dropdown filters to search the database again.
+            There are no items matching this criteria on this page index yet.
           </p>
         </div>
       )}

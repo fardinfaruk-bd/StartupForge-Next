@@ -1,0 +1,39 @@
+import OpportunityFiltersContainer from '@/components/opportunities/OpportunityFiltersContainer';
+import { getAllOpportunities } from '@/lib/api/opportunities';
+import React from 'react';
+import AdminOpportunityFilterContainer from './AdminOpportinityFilterContainer';
+
+const AdminOpportunitiesPage = async ({ searchParams }) => {
+    const filters = await searchParams;
+
+    const querySearch = new URLSearchParams(filters);
+    const queryString = querySearch.toString();
+
+    // Fetch listings (consider adding an admin flag if your API supports viewing drafts)
+    const { opportunities, total } = await getAllOpportunities(queryString);
+    
+    return (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            {/* Admin Header Section */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-200 pb-6 mb-8 gap-4">
+                <div>
+                    <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                        Manage Opportunities
+                    </h1>
+                    <p className="mt-2 text-sm text-slate-600">
+                        Overview of your current listings. Total count: <span className="font-semibold text-slate-900">{total || 0}</span>
+                    </p>
+                </div>
+
+            </div>
+            
+            <AdminOpportunityFilterContainer 
+                opportunities={opportunities || []} 
+                total={total || 0} 
+                filters={filters} 
+            />
+        </div>
+    );
+};
+
+export default AdminOpportunitiesPage;

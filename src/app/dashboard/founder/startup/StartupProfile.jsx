@@ -170,7 +170,7 @@ export default function StartupProfile({ founder, founderStartup }) {
         };
 
         return (
-            <div className="max-w-4xl mx-auto my-8 bg-zinc-950 border border-zinc-900 rounded-xl p-8 space-y-8">
+            <div className="max-w-4xl mx-auto my-8 bg-[#0A1220] border border-zinc-900 rounded-xl p-8 space-y-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-900 pb-6">
                     <div className="flex items-center gap-4">
                         {startup.logo ? (

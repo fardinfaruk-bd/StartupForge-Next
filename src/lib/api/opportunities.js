@@ -6,6 +6,9 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const getAllOpportunities = async (queryString) => {
   return serverFetch(`/api/opportunities?${queryString}`);
 };
+export const getAdminOpportunities = async (queryString) => {
+  return serverFetch(`/api/opportunities?${queryString}`);
+};
 
 export const getOpportunityById = async (id) => {
   const res = await fetch(`${baseUrl}/api/opportunities/${id}`);

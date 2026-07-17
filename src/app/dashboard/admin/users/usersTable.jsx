@@ -120,7 +120,7 @@ export default function UserTable({ initialUsers }) {
                                             ? 'bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-600/20'
                                             : 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
                                             }`}>
-                                            {user.status || 'active'}
+                                            {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
                                         </span>
                                     </Table.Cell>
                                     <Table.Cell>

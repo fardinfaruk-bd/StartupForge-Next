@@ -31,6 +31,7 @@ export function DashboardSidebar() {
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/admin" },
         { icon: ShieldUser, label: "Manage Users", href: "/dashboard/admin/users" },
         { icon: Rocket, label: "Manage Startups", href: "/dashboard/admin/startups" },
+        { icon: Layers, label: "Manage Opportunities", href: "/dashboard/admin/opportunities" },
         { icon: CreditCard, label: "Transactions", href: "/dashboard/admin/transactions" },
     ];
 
@@ -43,7 +44,6 @@ export function DashboardSidebar() {
     const navLinks = navLinkMap[session?.user?.role || "contributor"];
 
     const bottomNavItems = [
-        { icon: Gear, label: "Settings", href: "/dashboard/settings" },
         { icon: LogOut, label: "Logout", href: "/logout" },
     ];
 

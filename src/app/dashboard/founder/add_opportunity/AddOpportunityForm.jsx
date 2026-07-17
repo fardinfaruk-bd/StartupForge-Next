@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import { Form, Fieldset, TextField, Input, TextArea, Select, Label, ListBox, Button, FieldError } from "@heroui/react";
 import { Briefcase, Folder, Clock, Calendar, MapPin } from "@gravity-ui/icons";
-import { LaptopMinimal, FileText, Plus, LayoutGrid } from "lucide-react";
+import { LaptopMinimal, FileText} from "lucide-react";
 import { createOpportunity } from "@/lib/actions/opportunities";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+
 
 export default function AddOpportunityForm({ startup, user }) {
   const [workType, setWorkType] = useState("");

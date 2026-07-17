@@ -120,26 +120,30 @@ export default function StartupTable({ startups = [] }) {
                     <Table.Cell>
                       <div className="flex justify-end items-center gap-2">
                         {/* Approve Button (Green) */}
-                        <Button
-                          size="sm"
-                          variant="solid"
-                          className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium flex items-center gap-1.5 min-w-[90px]"
-                          onClick={() => handleApprove(startupId)}
-                        >
-                          <Check width={14} height={14} />
-                          Approve
-                        </Button>
+                        {startup.status.toLowerCase() !== "approved" && (
+                          <Button
+                            size="sm"
+                            variant="solid"
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium flex items-center gap-1.5 min-w-[90px]"
+                            onClick={() => handleApprove(startupId)}
+                          >
+                            <Check width={14} height={14} />
+                            Approve
+                          </Button>
+                        )}
 
                         {/* Reject Button (Red) */}
-                        <Button
-                          size="sm"
-                          variant="solid"
-                          className="bg-rose-600 hover:bg-rose-700 text-white font-medium flex items-center gap-1.5 min-w-[90px]"
-                          onClick={() => handleReject(startupId)}
-                        >
-                          <Xmark width={14} height={14} />
-                          Reject
-                        </Button>
+                        {startup.status.toLowerCase() !== "rejected" && (
+                          <Button
+                            size="sm"
+                            variant="solid"
+                            className="bg-rose-600 hover:bg-rose-700 text-white font-medium flex items-center gap-1.5 min-w-[90px]"
+                            onClick={() => handleReject(startupId)}
+                          >
+                            <Xmark width={14} height={14} />
+                            Reject
+                          </Button>
+                        )}
                       </div>
                     </Table.Cell>
                   </Table.Row>
