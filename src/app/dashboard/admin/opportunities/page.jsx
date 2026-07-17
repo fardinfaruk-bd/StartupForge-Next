@@ -1,4 +1,3 @@
-import OpportunityFiltersContainer from '@/components/opportunities/OpportunityFiltersContainer';
 import { getAllOpportunities } from '@/lib/api/opportunities';
 import React from 'react';
 import AdminOpportunityFilterContainer from './AdminOpportinityFilterContainer';

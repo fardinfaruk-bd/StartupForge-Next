@@ -51,7 +51,7 @@ export default function OpportunityPaginationContainer({ opportunities, total, f
     return pages;
   };
 
-  const startItem = (page - 1) * itemsPerPage + 1;
+  const startItem = totalItems === 0 ? 0 : (page - 1) * itemsPerPage + 1;
   const endItem = Math.min(page * itemsPerPage, totalItems);
 
   // Sync pagination state back to the server component layout
