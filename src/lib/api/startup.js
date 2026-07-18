@@ -1,5 +1,4 @@
 "use server";
-import { revalidatePath } from "next/cache";
 import { serverFetch } from "../core/server";
 import { getUserSession } from "../core/session";
 
@@ -22,3 +21,7 @@ export const getFeaturedStartups = async () => {
 export const getFounder = async (founderId) => {
   return serverFetch(`/api/users/${founderId}`);
 }
+
+export const getAllStartups = async (queryString) => {
+  return serverFetch(`/api/startups?${queryString}`);
+};

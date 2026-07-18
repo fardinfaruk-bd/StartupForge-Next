@@ -131,10 +131,6 @@ export default function StartupProfile({ founder, founderStartup }) {
         setShowForm(true);
     };
 
-    const startEditing = () => {
-        setLogoUrl(startup?.logo || '');
-        setShowForm(true);
-    };
 
     // --- VIEW CHECK 1: No Startup Registered & Not Editing/Registering ---
     if (!startup?._id && !showForm) {
@@ -239,7 +235,7 @@ export default function StartupProfile({ founder, founderStartup }) {
                             {errors.startupName && <FieldError className="text-xs text-danger mt-1">{errors.startupName}</FieldError>}
                         </TextField>
 
-                        <Select className={selectBoxClass} name="industry" defaultSelectedKeys={[startup?.industry || 'technology']}>
+                        <Select className={selectBoxClass} name="industry" defaultSelectedKeys={[startup?.industry || 'Technology']}>
                             <Label className="text-zinc-400 font-medium text-sm mb-1 block">Industry / Category</Label>
                             <Select.Trigger className={triggerClasses}>
                                 <Select.Value className="text-white placeholder:text-zinc-600" />
@@ -247,10 +243,10 @@ export default function StartupProfile({ founder, founderStartup }) {
                             </Select.Trigger>
                             <Select.Popover className={popoverClasses}>
                                 <ListBox className="outline-none">
-                                    <ListBox.Item id="technology" className={listItemClasses} textValue="Technology">Technology</ListBox.Item>
-                                    <ListBox.Item id="design" className={listItemClasses} textValue="Design">Design</ListBox.Item>
-                                    <ListBox.Item id="marketing" className={listItemClasses} textValue="Marketing">Marketing</ListBox.Item>
-                                    <ListBox.Item id="finance" className={listItemClasses} textValue="Finance">Finance</ListBox.Item>
+                                    <ListBox.Item id="Technology" className={listItemClasses} textValue="Technology">Technology</ListBox.Item>
+                                    <ListBox.Item id="Design" className={listItemClasses} textValue="Design">Design</ListBox.Item>
+                                    <ListBox.Item id="Marketing" className={listItemClasses} textValue="Marketing">Marketing</ListBox.Item>
+                                    <ListBox.Item id="Finance" className={listItemClasses} textValue="Finance">Finance</ListBox.Item>
                                 </ListBox>
                             </Select.Popover>
                         </Select>

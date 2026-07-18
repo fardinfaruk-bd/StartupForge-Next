@@ -3,18 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {  Pagination } from '@heroui/react';
 import { Magnifier  } from '@gravity-ui/icons';
-import OpportunityCard from '../ui/OpportunityCard';
-import OpportunityFilters from './OpportunityFilter';
+import StartupFilters from './StartupFilter';
+import StartupCard from '../ui/StartupCard';
 
-export default function OpportunityFiltersContainer({ opportunities, total, filters }) {
+export default function StartupFiltersContainer({startups, total, filters }) {
   const router = useRouter();
+  
 
   const normalizeFilter = (value, fallback) =>
     Array.isArray(value) ? value[0] || fallback : value || fallback;
 
   const [searchQuery, setSearchQuery] = useState(normalizeFilter(filters.search, ""));
-  const [selectedWorkType, setSelectedWorkType] = useState(normalizeFilter(filters.workType, "all"));
-  const [selectedCommitment, setSelectedCommitment] = useState(normalizeFilter(filters.commitment, "all"));
   const [page, setPage] = useState(Number(normalizeFilter(filters.page, 1)));
 
 
@@ -52,7 +51,6 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
 
     return pages;
   };
-  console.log(opportunities, "from filter");
 
 
   const startItem = (page - 1) * itemsPerPage + 1;
@@ -66,46 +64,34 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
       sp.set('search', searchQuery);
     }
 
-    if (selectedWorkType !== "all") {
-      sp.set('workType', selectedWorkType);
-    }
-
-    if (selectedCommitment !== "all") {
-      sp.set('commitment', selectedCommitment);
-    }
     if (page) {
       sp.set('page', page);
     }
 
-    console.log("search", sp.toString());
     const path = `?${sp.toString()}`;
     router.push(path);
 
 
-  }, [router, selectedWorkType, selectedCommitment, searchQuery, page]);
+  }, [router,searchQuery, page]);
 
   return (
     <>
-      <OpportunityFilters
+      <StartupFilters
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        selectedWorkType={selectedWorkType}
-        setSelectedWorkType={setSelectedWorkType}
-        selectedCommitment={selectedCommitment}
-        setSelectedCommitment={setSelectedCommitment}
       />
 
       {/* Item Metrics Counter */}
       <div className="text-sm text-slate-500 font-medium pl-1 mb-5">
-        Showing <span className="text-slate-800 font-semibold">{opportunities.length}</span> {opportunities.length === 1 ? 'opportunity' : 'opportunities'}
+        Showing <span className="text-slate-800 font-semibold">{startups?.length}</span> {startups?.length === 1 ? 'opportunity' : 'opportunities'}
       </div>
 
       {/* Main Grid Render */}
-      {opportunities.length > 0 ? (
+      {startups?.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {opportunities.map((opportunity) => (
-              <OpportunityCard key={opportunity._id} opportunity={opportunity} />
+            {startups.map((startup) => (
+              <StartupCard key={startup._id} startup={startup} />
             ))}
           </div>
           {totalPages > 1 && (

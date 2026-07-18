@@ -2,8 +2,10 @@
 
 import React from "react";
 import { Button } from "@heroui/react";
+import { getFounder } from "@/lib/api/startup";
 
-export default function StartupCard({ startup, founderName }) {
+export default function StartupCard({ startup }) {
+  
   
   return ( 
     <div className="w-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -21,14 +23,14 @@ export default function StartupCard({ startup, founderName }) {
         <h3 className="text-[#002447] font-bold text-xl tracking-tight">
           {startup.name}
         </h3>
-        <p className="text-gray-500 text-sm mt-1">
-          Founder: <span className="text-gray-700 font-medium">{founderName}</span>
+        <p className="text-gray-500 text-sm mt-1 line-clamp-2">
+          {startup.description}
         </p>
 
         {/* Metadata Badges / Chips */}
         <div className="flex flex-wrap gap-2 mt-4 mb-6">
           <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#e6f4f1] text-[#0f6c61]">
-            {startup.industry}
+            {startup.industry.charAt(0).toUpperCase() + startup.industry.slice(1)}
           </span>
           <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#edf2f7] text-[#4a5568]">
             {startup.employeeCount} Members

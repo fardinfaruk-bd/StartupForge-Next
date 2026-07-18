@@ -4,7 +4,6 @@ import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
 import StartupCard from "../ui/StartupCard";
 import { getFeaturedStartups } from "@/lib/api/startup";
-import StartupCardContainer from "./StartupCardContainer";
 
 export default async function FeaturedStartups() {
   // Mock data perfectly matching your image mockup layout 
@@ -38,7 +37,7 @@ export default async function FeaturedStartups() {
       {/* Grid wrapper importing Child Components */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {startups.map((startup) => (
-          <StartupCardContainer key={startup._id} startup={startup} />
+          <StartupCard key={startup._id} startup={startup} />
         ))}
       </div>
     </section>
