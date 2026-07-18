@@ -86,6 +86,7 @@ export default function AddOpportunityForm({ startup, user }) {
       e.target.reset();
       redirect("/dashboard/founder/manage_opportunity");
     }
+    
 
 
     // Clear all errors and reset states upon successful pass

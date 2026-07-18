@@ -8,13 +8,13 @@ import { toast } from 'react-toastify';
 
 const AlertDialogBtn = ({ opportunity }) => {
     const router = useRouter();
-    
+
     const handleDelete = async () => {
         const res = await deleteOpportunity(opportunity._id);
-        if (res?.error) {
+        if (res.error) {
             toast.error(res.error);
         } else {
-            toast.success("Opportunity deleted successfully"); // Fixed text
+            toast.success("Opportunity deleted successfully");
             router.refresh();
         }
     };

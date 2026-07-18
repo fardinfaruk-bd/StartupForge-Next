@@ -19,6 +19,6 @@ export const serverMutation = async (path, data, method = 'POST') => {
         },
         body: hasBody ? JSON.stringify(data) : undefined, // Safely omit body
     });
-
-    return res;
+    console.log(res, "Server");
+    return res.json();
 };

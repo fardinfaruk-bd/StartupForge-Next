@@ -25,14 +25,7 @@ export const updateOpportunity = async (id, updatedData) => {
 
 export const deleteOpportunity = async (id) => {
   try {
-    const res = await serverMutation(`/api/opportunities/${id}`, null,"DELETE",);
-
-    if (!res.ok) {
-      return { error: "Failed to delete the opportunity." };
-    }
-
-    const result = await res.json();
-
+    const result = await serverMutation(`/api/opportunities/${id}`, null, "DELETE");
     if (result && result.deletedCount > 0) {
       return { success: true };
     }

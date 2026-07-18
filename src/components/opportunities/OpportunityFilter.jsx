@@ -30,7 +30,7 @@ export default function OpportunityFilters({
                             </InputGroup.Prefix>
                             <InputGroup.Input
                                 placeholder="Title, Startup, or keywords..."
-                                className="bg-transparent placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
+                                className="bg-transparent text-white placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
                             />
                         </InputGroup>
                     </TextField>
@@ -84,7 +84,7 @@ export default function OpportunityFilters({
                             </Select.Indicator>
                         </Select.Trigger>
 
-                        <Select.Popover className="bg-zinc-800 border border-gray-200 rounded-xl shadow-xl mt-1 overflow-hidden z-50">
+                        <Select.Popover className="bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl mt-1 overflow-hidden z-50">
                             <ListBox aria-label="Commitment Options" className="p-1 outline-none">
                                 <ListBox.Item id="all" textValue="All Commitments" className="text-zinc-200 hover:bg-purple-600 hover:text-white rounded-lg px-3 py-2 text-sm cursor-pointer capitalize">
                                     All Commitments

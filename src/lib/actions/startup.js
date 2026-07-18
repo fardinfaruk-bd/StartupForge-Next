@@ -22,6 +22,6 @@ export const updateStartup = async (newStartupData, _id) => {
 export const updateStartupStatus = async (id, data) => {
   const result = await serverMutation(`/api/startup/status/${id}`, data, "PATCH");
   revalidatePath("/dashboard/admin/startups");
-  return result.json();
+  return result;
 };
 
