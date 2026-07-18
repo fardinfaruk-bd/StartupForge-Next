@@ -61,8 +61,8 @@ export default function OpportunityPaginationContainer({ opportunities, total, f
           <Table.Content aria-label="Opportunities Dashboard Table" className="min-w-[750px]">
             <Table.Header>
               <Table.Column isRowHeader>Opportunity Title</Table.Column>
-              <Table.Column>Company</Table.Column>
-              <Table.Column>Work Type</Table.Column>
+              <Table.Column>Startup</Table.Column>
+              <Table.Column>Location</Table.Column>
               <Table.Column>Commitment</Table.Column>
               {/* New column header aligned neatly to the right */}
               <Table.Column>Actions</Table.Column>
@@ -73,8 +73,8 @@ export default function OpportunityPaginationContainer({ opportunities, total, f
                 <Table.Row key={opportunity._id}>
                   <Table.Cell>{opportunity.roleTitle || "—"}</Table.Cell>
                   <Table.Cell>{opportunity.startupName || "—"}</Table.Cell>
-                  <Table.Cell>{opportunity.workType || "—"}</Table.Cell>
-                  <Table.Cell>{opportunity.commitment || "—"}</Table.Cell>
+                  {opportunity.workType === "remote" ? <Table.Cell>{opportunity?.workType.charAt(0).toUpperCase() + opportunity?.workType.slice(1)}</Table.Cell> : <Table.Cell>{opportunity?.location}</Table.Cell>}
+                  <Table.Cell>{opportunity.commitment.charAt(0).toUpperCase() + opportunity.commitment.slice(1) || "—"}</Table.Cell>
 
                   {/* Action buttons matching the schema */}
                   <Table.Cell className="text-right">

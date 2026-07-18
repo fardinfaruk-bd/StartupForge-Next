@@ -15,4 +15,10 @@ export const getActiveAllStartups = async () => {
   return serverFetch(`/api/startups`);
 };
 
+export const getFeaturedStartups = async () => {
+  return serverFetch(`/api/startups/featured`);
+}
 
+export const getFounder = async (founderId) => {
+  return serverFetch(`/api/users/${founderId}`);
+}

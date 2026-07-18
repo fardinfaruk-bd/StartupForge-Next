@@ -24,3 +24,4 @@ export const updateStartupStatus = async (id, data) => {
   revalidatePath("/dashboard/admin/startups");
   return result.json();
 };
+

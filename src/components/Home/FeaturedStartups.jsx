@@ -1,38 +1,16 @@
-"use client";
 
 import React from "react";
 import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
 import StartupCard from "../ui/StartupCard";
+import { getFeaturedStartups } from "@/lib/api/startup";
+import StartupCardContainer from "./StartupCardContainer";
 
-export default function FeaturedStartups() {
+export default async function FeaturedStartups() {
   // Mock data perfectly matching your image mockup layout 
-  const startupData = [
-    {
-      id: 1,
-      logo: "https://i.ibb.co.com/4nMFkJ4L/Startup-Forge-discussion-202606181237.jpg", // Replace with your static asset paths
-      name: "TechNova Solutions",
-      founder: "Sarah Chen",
-      industry: "Fintech",
-      members: 24,
-    },
-    {
-      id: 2,
-      logo: "https://i.ibb.co.com/rRsxM4Yw/Startup-Forge-discussion-202606181237-1.jpg", 
-      name: "EcoStream",
-      founder: "Marcus Thorne",
-      industry: "Sustainability",
-      members: 12,
-    },
-    {
-      id: 3,
-      logo: "https://i.ibb.co.com/nsZBj9d4/Startup-Forge-discussion-202606181237-2.jpg",
-      name: "QuantumPay",
-      founder: "Elena Rodriguez",
-      industry: "Blockchain",
-      members: 38,
-    },
-  ];
+  const startups = await getFeaturedStartups();
+
+  
 
   return (
     <section className="w-full max-w-7xl mx-auto px-6 py-16 bg-white">
@@ -59,15 +37,8 @@ export default function FeaturedStartups() {
 
       {/* Grid wrapper importing Child Components */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {startupData.map((startup) => (
-          <StartupCard
-            key={startup.id}
-            logo={startup.logo}
-            name={startup.name}
-            founder={startup.founder}
-            industry={startup.industry}
-            members={startup.members}
-          />
+        {startups.map((startup) => (
+          <StartupCardContainer key={startup._id} startup={startup} />
         ))}
       </div>
     </section>
