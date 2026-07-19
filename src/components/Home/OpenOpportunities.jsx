@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
-import OpportunityCard from "../ui/OpportunityCard";
 import { getOpenOpportunities } from "@/lib/api/opportunities";
+import AnimatedOpportunityGrid from "./AnimatedOpportunityGrid";
 
 export default async function OpenOpportunities() {
-  const opportunities = await getOpenOpportunities("status=active");
+  const opportunities = await getOpenOpportunities("status=active") || [];
 
   return (
-    <section className="w-full bg-[#f0f5ff] py-16 px-6 flex justify-center items-center">
+    <section className="w-full bg-[#f0f5ff] py-16 px-6 flex justify-center items-center overflow-hidden">
       <div className="w-full max-w-7xl mx-auto">
         
         {/* Header Layout Component */}
@@ -32,12 +32,8 @@ export default async function OpenOpportunities() {
           </Link>
         </div>
 
-        {/* Responsive Layout Grid Mapping */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {opportunities.map((opportunity, index) => (
-            <OpportunityCard key={index} opportunity={opportunity}/>
-          ))}
-        </div>
+        {/* Dynamic Framer Motion Animated Grid Engine */}
+        <AnimatedOpportunityGrid opportunities={opportunities} />
 
       </div>
     </section>

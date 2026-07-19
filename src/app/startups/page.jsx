@@ -1,15 +1,19 @@
 import StartupFiltersContainer from '@/components/startups/StartupsFiltersContainer';
 import { getAllStartups } from '@/lib/api/startup';
+import { Magnifier } from '@gravity-ui/icons';
 import React from 'react';
+import Loading from '../loading';
 
-const page = async ({searchParams}) => {
+const page = async ({ searchParams }) => {
     const filters = await searchParams;
 
     const querySearch = new URLSearchParams(filters)
     const queryString = querySearch.toString();
 
-    const { startups , total} = await getAllStartups(queryString);
-    
+    const { startups, total } = await getAllStartups(queryString);
+
+
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             {/* Header Info Section */}
@@ -28,9 +32,12 @@ const page = async ({searchParams}) => {
                     {startups?.length} Active {startups?.length === 1 ? 'Company' : 'Companies'}
                 </span>
             </div>
+            {!startups &&
+                <Loading />
+            }
 
             <StartupFiltersContainer startups={startups} total={total} filters={filters} />
-            
+
         </div>
     );
 };

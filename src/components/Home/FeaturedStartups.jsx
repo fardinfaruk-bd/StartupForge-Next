@@ -1,18 +1,14 @@
-
 import React from "react";
 import { Link } from "@heroui/react";
 import { ArrowRight } from "lucide-react";
-import StartupCard from "../ui/StartupCard";
 import { getFeaturedStartups } from "@/lib/api/startup";
+import AnimatedStartupGrid from "./AnimatedStartupGrid";
 
 export default async function FeaturedStartups() {
-  // Mock data perfectly matching your image mockup layout 
-  const startups = await getFeaturedStartups();
-
-  
+  const startups = await getFeaturedStartups() || [];
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 py-16 bg-white">
+    <section className="w-full max-w-7xl mx-auto px-6 py-16 bg-white overflow-hidden">
       {/* Header Section Layout */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
@@ -34,12 +30,8 @@ export default async function FeaturedStartups() {
         </Link>
       </div>
 
-      {/* Grid wrapper importing Child Components */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {startups.map((startup) => (
-          <StartupCard key={startup._id} startup={startup} />
-        ))}
-      </div>
+      {/* Render the Framer Motion Client Grid Component */}
+      <AnimatedStartupGrid startups={startups} />
     </section>
   );
 }

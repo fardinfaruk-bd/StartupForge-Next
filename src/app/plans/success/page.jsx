@@ -20,6 +20,7 @@ export default async function Success({ searchParams }) {
     expand: ['line_items', 'payment_intent']
   });
 
+
   if (status === 'open') {
     return redirect('/');
   }
@@ -28,7 +29,7 @@ export default async function Success({ searchParams }) {
     const payment = {
         email: customerEmail,
         planId: metadata.planId,
-        price: metadata.priceId
+        price: metadata.priceId === "price_1Tl2meQiUZAJiSqFhRdl7TaJ" ? 49 : metadata.priceId === "price_1Tl3FrQiUZAJiSqF8Luy3oqH" ? 149 : 0
     }
     const result = await createPayment(payment);
     console.log(result);
