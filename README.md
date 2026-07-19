@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 StartupForge — Startup Team Builder Platform
 
-## Getting Started
+StartupForge is a centralized platform engineered to bridge the gap between startup founders and looking collaborators. Founders can establish their company profiles, launch project demands, and manage cross-functional recruitment workflows. Collaborators (developers, designers, marketers) can browse openings, apply to active teams, and manage their status portfolios.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 💼 For Founders
+- 🏢 **Create & Manage Startups:** Build comprehensive startup profiles complete with logo image uploads via ImgBB.
+- 📋 **Opportunity Management:** Launch open role requests tailored with metadata parameters (Work Type, Skills, Commitments).
+- 🤝 **Applicant Review System:** Assess applicant profiles directly with operational state pipelines (`Pending`, `Approved`, `Rejected`).
+- 💳 **Stripe Payment Gateway:** Integrated monetization limits allowing up to 3 listings before requiring premium tier checkout activations.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🛠️ For Collaborators
+- 🔍 **Elastic Opportunity Exploration:** Search and filter active opportunities by title, skills, or work type with fast server-side pagination.
+- 📝 **Dynamic Application Portfolios:** Apply directly to matching startups with customized portfolio links and motivation notes.
+- 📊 **Track Applications:** Monitor your personal processing status dashboard in real time.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🛡️ For Administrators
+- 📈 **Platform Analytics:** Track operational platform statistics across total users, entity registrations, open positions, and total transaction revenues.
+- ⚙️ **System Moderation Desk:** Secure controls to globally toggle visibility states of startups and enforce user block/unblock mechanics.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication & Security
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🔑 **Multi-Role RBAC Architecture:** Segregated dashboard layouts mapping individual spaces for Founders, Collaborators, and Admins.
+- 🔐 **Better Auth Core Integration:** Secure cookie-based email/password credentials and direct Google OAuth provider strategies.
+- 🛡️ **JWT Shield Protection:** Secure middleware-enforced validation pipelines serving protected data payloads over `HTTPOnly` custom cookies.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🎨 UI / UX Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- ⚡ Built on **Next.js 15+ App Router** utilizing the fast **Turbopack Engine**.
+- 🎨 Styled with **HeroUI (v3) + TailwindCSS** ensuring matching card heights and layout image grids.
+- 📱 Fully responsive design optimized across mobile, tablet, and desktop interfaces.
+- 🎬 Fluent dynamic interfaces featuring micro-interactions powered by **Motion (Framer Motion)**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛠️ Tech Stack Matrix
+
+- **Frontend Framework:** Next.js 15+ (App Router)
+- **Component System:** HeroUI & TailwindCSS
+- **Animation Core:** Motion (Framer Motion)
+- **Authentication Engine:** Better Auth & JSON Web Tokens (JWT)
+- **Database Architecture:** MongoDB API Platform
+- **Payment Processing:** Stripe Node SDK & Webhooks
+- **Asset Storage CDN:** ImgBB API Core
+
+---
+
+## 👨‍💻 Author
+
+
+
+Developed by **Md Fardin Faruk**
+
+
+
+---
+
+
+
+## ⭐ Support
+
+
+
+If you like this project, don’t forget to give it a ⭐ on GitHub!
