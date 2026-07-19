@@ -15,7 +15,7 @@ export const getActiveAllStartups = async () => {
 };
 
 export const getFeaturedStartups = async () => {
-  return serverFetch(`/api/startups/featured`);
+  return serverFetch(`/api/featured/startups`);
 }
 
 export const getFounder = async (founderId) => {
@@ -24,4 +24,7 @@ export const getFounder = async (founderId) => {
 
 export const getAllStartups = async (queryString) => {
   return serverFetch(`/api/startups?${queryString}`);
+};
+export const getStartupById = async (id) => {
+  return serverFetch(`/api/startups/${id}`);
 };

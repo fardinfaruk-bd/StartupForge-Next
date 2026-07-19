@@ -3,18 +3,19 @@
 import React from "react";
 import { Button } from "@heroui/react";
 import { getFounder } from "@/lib/api/startup";
+import Link from "next/link";
 
 export default function StartupCard({ startup }) {
-  
-  
-  return ( 
+
+
+  return (
     <div className="w-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
       <div>
         {/* Startup Logo Container */}
         <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center mb-5">
-          <img 
-            src={startup.logo} 
-            alt={`${startup.name} logo`} 
+          <img
+            src={startup.logo}
+            alt={`${startup.name} logo`}
             className="w-full h-full object-cover"
           />
         </div>
@@ -39,12 +40,14 @@ export default function StartupCard({ startup }) {
       </div>
 
       {/* Action Button */}
-      <Button
-        variant="bordered"
-        className="w-full border border-[#0f6c61] text-[#0f6c61] hover:bg-[#0f6c61]/5 font-semibold text-[14px] h-[42px] rounded-xl transition-colors"
-      >
-        View Profile
-      </Button>
+      <Link href={`/startups/${startup._id}`}>
+        <Button
+          variant="bordered"
+          className="w-full border border-[#0f6c61] text-[#0f6c61] hover:bg-[#0f6c61]/5 font-semibold text-[14px] h-[42px] rounded-xl transition-colors"
+        >
+          View Profile
+        </Button>
+      </Link>
     </div>
   );
 }

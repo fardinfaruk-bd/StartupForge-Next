@@ -30,7 +30,7 @@ export default function OpportunityFilters({
                             </InputGroup.Prefix>
                             <InputGroup.Input
                                 placeholder="Title, Startup, or keywords..."
-                                className="bg-transparent text-white placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
+                                className="bg-transparent placeholder-zinc-500 text-sm py-2.5 px-3 outline-none w-full"
                             />
                         </InputGroup>
                     </TextField>
@@ -77,7 +77,7 @@ export default function OpportunityFilters({
                         value={selectedCommitment}
                         onChange={(key) => setSelectedCommitment(key)}
                     >
-                        <Select.Trigger className="w-full flex items-center justify-between  border border-zinc-700 hover:border-zinc-600 rounded-xl py-2.5 px-4 text-sm font-normal transition-all">
+                        <Select.Trigger className="w-full flex items-center justify-between  border border-gray-200 hover:border-zinc-600 rounded-xl py-2.5 px-4 text-sm font-normal transition-all">
                             <Select.Value className="capitalize" />
                             <Select.Indicator>
                                 <ChevronDown className="w-4 h-4 text-zinc-400" />

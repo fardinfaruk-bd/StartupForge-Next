@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {  Pagination } from '@heroui/react';
-import { Magnifier  } from '@gravity-ui/icons';
+import { Pagination } from '@heroui/react';
+import { Magnifier } from '@gravity-ui/icons';
 import OpportunityCard from '../ui/OpportunityCard';
 import OpportunityFilters from './OpportunityFilter';
 
@@ -17,7 +17,6 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
   const [selectedWorkType, setSelectedWorkType] = useState(normalizeFilter(filters.workType, "all"));
   const [selectedCommitment, setSelectedCommitment] = useState(normalizeFilter(filters.commitment, "all"));
   const [page, setPage] = useState(Number(normalizeFilter(filters.page, 1)));
-
 
   const totalItems = total;
   const itemsPerPage = 12;
@@ -37,15 +36,16 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
     if (page < totalPages - 2) {
       pages.push("ellipsis");
     }
-    pages.push(totalPages);
-    return pages;
+    if (totalPages > 1) {
+      pages.push(totalPages);
+    }
+    
+    // Safety deduplication pass using array mapping
+    return Array.from(new Set(pages));
   };
-  console.log(opportunities, "from filter");
-
 
   const startItem = (page - 1) * itemsPerPage + 1;
   const endItem = Math.min(page * itemsPerPage, totalItems);
-
 
   useEffect(() => {
     const sp = new URLSearchParams();
@@ -65,11 +65,8 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
       sp.set('page', page);
     }
 
-    console.log("search", sp.toString());
     const path = `?${sp.toString()}`;
     router.push(path);
-
-
   }, [router, selectedWorkType, selectedCommitment, searchQuery, page]);
 
   return (
@@ -84,7 +81,7 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
       />
 
       {/* Item Metrics Counter */}
-      <div className="text-sm text-slate-500 font-medium pl-1">
+      <div className="text-sm text-slate-500 font-medium pl-1 my-3">
         Showing <span className="text-slate-800 font-semibold">{opportunities.length}</span> {opportunities.length === 1 ? 'opportunity' : 'opportunities'}
       </div>
 
@@ -92,11 +89,15 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
       {opportunities.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {opportunities.map((opportunity, index) => (
-              <OpportunityCard key={index} opportunity={opportunity} />
+            {opportunities?.map((opportunity) => (
+              <OpportunityCard 
+                key={opportunity._id?.$oid || opportunity._id || opportunity.id} 
+                opportunity={opportunity} 
+              />
             ))}
           </div>
-          <Pagination className="w-full">
+
+          <Pagination className="w-full my-8 ">
             <Pagination.Summary>
               Showing {startItem}-{endItem} of {totalItems} results
             </Pagination.Summary>
@@ -107,28 +108,30 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
                   <span>Previous</span>
                 </Pagination.Previous>
               </Pagination.Item>
+              
               {getPageNumbers().map((p, i) =>
                 p === "ellipsis" ? (
                   <Pagination.Item key={`ellipsis-${i}`}>
                     <Pagination.Ellipsis />
                   </Pagination.Item>
                 ) : (
-                  <Pagination.Item key={p}>
+                  // FIXED: Unique compound key configuration to guarantee React context compliance
+                  <Pagination.Item key={`page-${p}-${i}`}>
                     <Pagination.Link isActive={p === page} onPress={() => setPage(p)}>
                       {p}
                     </Pagination.Link>
                   </Pagination.Item>
                 ),
               )}
+
               <Pagination.Item>
-                <Pagination.Next isDisabled={page === totalPages} onPress={() => setPage((p) => p + 1)}>
+                <Pagination.Next isDisabled={page === totalPages || totalPages === 0} onPress={() => setPage((p) => p + 1)}>
                   <span>Next</span>
                   <Pagination.NextIcon />
                 </Pagination.Next>
               </Pagination.Item>
             </Pagination.Content>
           </Pagination>
-
         </>
       ) : (
         <div className="text-center py-16 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 max-w-xl mx-auto mt-6">
