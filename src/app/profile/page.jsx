@@ -1,0 +1,18 @@
+import { getUserSession } from '@/lib/core/session';
+import React from 'react';
+import ProfileView from './ProfileView';
+
+const Page = async () => {
+    const user = await getUserSession();
+        if (!user) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <p className="text-neutral-500">Please sign in to view your profile.</p>
+            </div>
+        );
+    }
+
+    return <ProfileView userData={user} />;
+};
+
+export default Page;
