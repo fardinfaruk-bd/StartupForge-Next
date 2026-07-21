@@ -85,11 +85,11 @@ export function DashboardSidebar() {
             <div className="flex flex-col gap-8">
                 {/* Branding Block */}
                 <div className="px-2">
-                    <h2 className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#76f1cc] to-emerald-300 bg-clip-text text-transparent">
+                    <h2 className="text-xl font-bold tracking-tight bg-linear-to-r from-[#76f1cc] to-emerald-300 bg-clip-text text-transparent">
                         StartupForge
                     </h2>
                     <p className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
-                        {session?.user?.role} Portal
+                        {session?.user?.role || "Contributor"} Portal
                     </p>
                 </div>
 

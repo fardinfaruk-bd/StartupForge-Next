@@ -1,13 +1,14 @@
-"use client"
-import { useSession } from '@/lib/auth-client';
+import ProfileView from '@/app/profile/ProfileView';
+import { getUserSession } from '@/lib/core/session';
 import React from 'react';
 
-const ContributorProfile = () => {
+const page = async() => {
+    const user = await getUserSession();
     return (
         <div>
-            <h2>Contributor Profile</h2>
+            <ProfileView userData={user} />
         </div>
     );
 };
 
-export default ContributorProfile;
+export default page;

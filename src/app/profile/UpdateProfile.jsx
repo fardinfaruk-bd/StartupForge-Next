@@ -135,7 +135,7 @@ export default function InfoUpdateModal({ currentUser }) {
                 color="success"
                 variant="shadow"
                 startContent={<Edit className="w-4 h-4" />}
-                className="font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg px-4"
+                className="font-semibold text-white bg-linear-to-r from-emerald-500 to-teal-600 rounded-lg px-4"
                 onPress={modalState.open}
             >
                 Update Info
@@ -171,7 +171,7 @@ export default function InfoUpdateModal({ currentUser }) {
                                     <div className="flex flex-col gap-1 w-full">
                                         <span className="text-zinc-400 font-medium text-sm">Profile Picture</span>
                                         <div className="flex items-center gap-4 mt-1">
-                                            <label className="w-14 h-14 border border-dashed border-zinc-700 hover:border-zinc-500 bg-zinc-900/40 rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors group relative overflow-hidden flex-shrink-0">
+                                            <label className="w-14 h-14 border border-dashed border-zinc-700 hover:border-zinc-500 bg-zinc-900/40 rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors group relative overflow-hidden shrink-0">
                                                 <input 
                                                     id="avatar-file-input"
                                                     type="file" 

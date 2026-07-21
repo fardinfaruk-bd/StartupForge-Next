@@ -1,38 +1,36 @@
-"use client";
-import { authClient } from '@/lib/auth-client';
 import React from 'react';
-import { Briefcase, Persons, Thunderbolt, CircleCheck, Globe, HardDrive, Cpu } from '@gravity-ui/icons';
 import { Spinner } from '@heroui/react';
 import { DashboardStats } from '@/components/ui/DashboardStats';
+import { getUserSession } from '@/lib/core/session';
+import { loadFounderStats } from '@/lib/api/stats';
+import { formatDashboardStats } from '@/lib/formatStats';
 
-const FounderDashboardHomePage = () => {
-    const { data: session, isPending } = authClient.useSession();
+const FounderDashboardHomePage = async () => {
+  const user = await getUserSession();
 
-    if (isPending) {
-        return (
-            <div className="flex items-center justify-center min-h-screen gap-4">
-                <Spinner />
-            </div>
-        )
-    }
-
-    const user = session?.user;
-    
-
-    const Stats = [
-        { title: "Total Job Posts", value: "48", icon: Briefcase },
-        { title: "Total Applicants", value: "1,284", icon: Persons },
-        { title: "Active Jobs", value: "18", icon: Thunderbolt },
-        { title: "Jobs Closed", value: "32", icon: CircleCheck },
-    ];
-
+  if (!user) {
     return (
-        <div className='p-3'>
-            <h2 className='text-4xl font-bold'>Welcome! {user?.name}</h2>
-            <DashboardStats statsData={Stats} />
-        </div>
-
+      <div className="flex items-center justify-center min-h-screen gap-4">
+        <Spinner />
+      </div>
     );
+  }
+
+  
+  const rawResponse = await loadFounderStats(user.role, user.id);
+
+  
+  
+  const rawStats = rawResponse?.stats || rawResponse;
+  console.log(rawStats, "stats");
+  const formattedStats = formatDashboardStats(user.role, rawStats);
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto flex flex-col gap-6">
+      <h2 className="text-3xl font-bold tracking-tight">Welcome, {user?.name}!</h2>
+      <DashboardStats statsData={formattedStats} />
+    </div>
+  );
 };
 
 export default FounderDashboardHomePage;
