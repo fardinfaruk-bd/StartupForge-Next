@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 
-export default function PlatformImpact() {
+export default function PlatformImpact({ rawStats }) {
   // Stagger configurations for the parent grid
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -14,6 +14,13 @@ export default function PlatformImpact() {
         staggerChildren: 0.15,
       },
     },
+  };
+  const formatStatCount = (num) => {
+    const value = Number(num);
+    if (isNaN(value) || value < 0) return "0";
+    if (value < 5) return `${value}`;
+    if (value < 10) return `${Math.floor(value / 5) * 5}+`;
+    return `${Math.floor(value / 10) * 10}+`;
   };
 
   // Upward spring fade for cards
@@ -70,10 +77,7 @@ export default function PlatformImpact() {
             </span>
             <div className="flex items-baseline gap-2 mt-3">
               <span className="text-[#0f6c61] font-bold text-3xl tracking-tight">
-                2,450+
-              </span>
-              <span className="text-[#0f6c61] font-bold text-xs">
-                +12%
+                {formatStatCount(rawStats?.stats?.activeStartups)}
               </span>
             </div>
           </motion.div>
@@ -89,7 +93,7 @@ export default function PlatformImpact() {
             </span>
             <div className="flex items-center gap-3 mt-3">
               <span className="text-[#0f6c61] font-bold text-3xl tracking-tight">
-                8,900+
+                {formatStatCount(rawStats?.stats?.totalOpportunities)}
               </span>
               <span className="px-2 py-0.5 text-[11px] font-bold text-[#0f6c61] bg-[#e6f4f1] rounded-md">
                 New
@@ -108,7 +112,7 @@ export default function PlatformImpact() {
             </span>
             <div className="flex items-center gap-2 mt-3">
               <span className="text-[#0f6c61] font-bold text-3xl tracking-tight">
-                $4.2B+
+                {formatStatCount(rawStats?.stats?.totalFundingRaised)}
               </span>
               <TrendingUp size={20} className="text-[#0f6c61]" strokeWidth={2.5} />
             </div>
@@ -125,10 +129,7 @@ export default function PlatformImpact() {
             </span>
             <div className="flex flex-col mt-2">
               <span className="text-[#002447] font-bold text-3xl tracking-tight">
-                15,000+
-              </span>
-              <span className="text-gray-500 font-semibold text-xs mt-1">
-                +500 this month
+                {formatStatCount(rawStats?.stats?.totalAcceptedApplications)}
               </span>
             </div>
           </motion.div>

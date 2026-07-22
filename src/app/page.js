@@ -4,16 +4,20 @@ import OpenOpportunities from "@/components/Home/OpenOpportunities";
 import PlatformImpact from "@/components/Home/PlatformImpact";
 import StatsSection from "@/components/Home/StatsSection";
 import WhyJoin from "@/components/Home/WhyJoin";
+import { loadPublicStats } from "@/lib/api/stats";
 
-export default function Home() {
+export default async function Home() {
+
+  const rawStats = await loadPublicStats();
+  
   return (
     <>
       <HeroBanner />
-      <StatsSection />
+      <StatsSection  rawStats={rawStats}/>
       <FeaturedStartups />
       <OpenOpportunities />
       <WhyJoin />
-      <PlatformImpact />
+      <PlatformImpact rawStats={rawStats}/>
     </>
   );
 }

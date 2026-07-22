@@ -11,3 +11,8 @@ export const loadContributorStats = async (role, userId, email) => {
 export const loadAdminStats = async (role) => {
   return serverFetch(`/api/states?role=${role}`);
 };
+
+
+export const loadPublicStats = async () => {
+  return serverFetch(`/api/stats/public`);
+}

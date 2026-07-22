@@ -5,23 +5,33 @@ import { Card, CardBody } from "@heroui/react";
 import { Rocket, Users, HandCoins } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function StatsSection() {
+export default function StatsSection({ rawStats }) {
+  const formatStatCount = (num) => {
+    const value = Number(num);
+    if (isNaN(value) || value < 0) return "0";
+    if (value < 5) return `${value}`;
+    if (value < 10) return `${Math.floor(value / 5) * 5}+`;
+    return `${Math.floor(value / 10) * 10}+`;
+  };
+
+  console.log(rawStats);
+
   const stats = [
     {
       id: 1,
-      value: "500+",
+      value: formatStatCount(rawStats?.stats?.totalStartups),
       label: "STARTUPS BUILT",
       icon: Rocket,
     },
     {
       id: 2,
-      value: "12k+",
+      value: formatStatCount(rawStats?.stats?.totalAcceptedApplications),
       label: "TALENT PLACED",
       icon: Users,
     },
     {
       id: 3,
-      value: "$2.4B",
+      value: formatStatCount(rawStats?.stats?.totalFundingRaised),
       label: "FUNDING RAISED",
       icon: HandCoins,
     },
@@ -41,16 +51,16 @@ export default function StatsSection() {
   // Individual item variants for fading and sliding up
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    show: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { type: "spring", stiffness: 100, damping: 15 } 
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 }
     },
   };
 
   return (
     <section className="w-full bg-[#f0f5ff] py-12 sm:py-16 px-6 flex justify-center items-center overflow-hidden">
-      <motion.div 
+      <motion.div
         className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 text-center"
         variants={containerVariants}
         initial="hidden"
