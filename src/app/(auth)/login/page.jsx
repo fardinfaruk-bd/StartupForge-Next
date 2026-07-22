@@ -16,6 +16,7 @@ import {
 import { At, Eye, EyeSlash, ShieldKeyhole } from "@gravity-ui/icons";
 import AuthLeftUi from "@/components/ui/AuthLeftUi";
 import { signIn } from "@/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -67,6 +68,13 @@ export default function LoginPage() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleGoogleLogin = async () => {
+        const data = await signIn.social({
+            provider: "google",
+        });
+
     };
 
     return (
@@ -168,6 +176,10 @@ export default function LoginPage() {
                             isDisabled={isLoading}
                         >
                             Sign In
+                        </Button>
+                        <Button variant="outline" className="w-full font-semibold rounded-xl text-sm h-12 shadow-sm" onClick={handleGoogleLogin}>
+                            <FcGoogle />
+                            Sign Up with Google
                         </Button>
 
                         {/* Navigation Footer links */}

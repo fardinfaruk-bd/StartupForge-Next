@@ -21,6 +21,7 @@ import { Person, At, Eye, EyeSlash, Camera, ShieldKeyhole } from "@gravity-ui/ic
 import AuthLeftUi from "@/components/ui/AuthLeftUi";
 import { toast } from "react-toastify";
 import { signUp } from "@/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -134,6 +135,13 @@ export default function RegisterPage() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleGoogleLogin = async () => {
+        const data = await signIn.social({
+            provider: "google",
+        });
+
     };
 
     return (
@@ -320,6 +328,10 @@ export default function RegisterPage() {
                             isDisabled={isLoading}
                         >
                             Sign Up
+                        </Button>
+                        <Button variant="outline" className="w-full font-semibold rounded-xl text-sm h-12 shadow-sm" onClick={handleGoogleLogin}>
+                            <FcGoogle />
+                            Sign Up with Google
                         </Button>
 
                         {/* Navigation Footer links */}

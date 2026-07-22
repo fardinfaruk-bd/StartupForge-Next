@@ -9,9 +9,12 @@ import { Autoplay, EffectFade } from "swiper/modules";
 // Explicit Swiper Core Styles
 import "swiper/css";
 import "swiper/css/effect-fade";
+import { useSession } from "@/lib/auth-client";
 
 export default function HeroBanner() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
 
   // Structured slides containing unique text and its corresponding background image
   const slides = [
@@ -34,13 +37,13 @@ export default function HeroBanner() {
 
   const textVariants = {
     hidden: { opacity: 0, y: 25 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.7, ease: "easeOut" }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       y: -15,
       transition: { duration: 0.3, ease: "easeIn" }
     }
@@ -49,7 +52,7 @@ export default function HeroBanner() {
   return (
     // RESPONSIVE FIX: Changed h-[80vh] to dynamic h-auto + padding on mobile, clamping to h-[85vh] on desktop to prevent text overflow.
     <section className="relative w-full min-h-[550px] sm:min-h-[600px] h-auto lg:h-[85vh] flex items-center justify-center overflow-hidden bg-white py-16 sm:py-20 lg:py-0">
-      
+
       {/* 1. THE CAROUSEL BACKGROUND LAYER */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Swiper
@@ -65,7 +68,7 @@ export default function HeroBanner() {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index} className="relative w-full h-full">
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${slide.imgUrl})` }}
               />
@@ -78,11 +81,11 @@ export default function HeroBanner() {
 
       {/* 2. THE FOREGROUND CONTENT LAYER */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center justify-center">
-        
+
         {/* ANIMATED TEXT WRAPPER (Changes on index swap) */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeIndex} 
+            key={activeIndex}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -90,7 +93,7 @@ export default function HeroBanner() {
           >
             {/* Dynamic Headline */}
             {/* RESPONSIVE FIX: Adjusted sizes text-2xl (mobile) -> text-4xl (tablet) -> text-[56px] (desktop) */}
-            <motion.h1 
+            <motion.h1
               variants={textVariants}
               className="text-[#002447] font-bold text-2xl sm:text-4xl md:text-5xl lg:text-[56px] leading-[1.2] sm:leading-[1.15] tracking-tight max-w-[800px]"
             >
@@ -99,7 +102,7 @@ export default function HeroBanner() {
 
             {/* Dynamic Subtitle description */}
             {/* RESPONSIVE FIX: Text base sizes scaled down beautifully for ultra-small mobile displays */}
-            <motion.p 
+            <motion.p
               variants={textVariants}
               transition={{ delay: 0.15 }}
               className="mt-4 sm:mt-6 text-[#1a202c] text-xs sm:text-base md:text-[17px] max-w-xl sm:max-w-2xl font-semibold leading-[1.6]"
@@ -112,22 +115,14 @@ export default function HeroBanner() {
         {/* STATIC CTA BUTTONS LAYER (Stays fixed, no animation on swipe) */}
         {/* RESPONSIVE FIX: flex-col (mobile) -> flex-row (tablet & up) with full width buttons on phone layout */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none px-4 sm:px-0">
-          <Button
-            as={Link}
-            href="/register"
-            className="w-full sm:w-auto bg-[#0f6c61] text-white font-medium text-[15px] px-7 h-[46px] rounded-lg shadow-sm hover:opacity-90 transition-opacity"
-          >
-            Get Started
-          </Button>
-          
-          <Button
-            as={Link}
-            href="/about"
-            variant="bordered"
-            className="w-full sm:w-auto bg-transparent text-[#002447] border border-[#002447] font-medium text-[15px] px-7 h-[46px] rounded-lg hover:bg-[#002447]/5 transition-colors"
-          >
-            Learn More
-          </Button>
+          <Link href={user ? `/dashboard/${user?.role}` : "/login"}>
+            <Button
+              className="w-full sm:w-auto bg-[#0f6c61] text-white font-medium text-[15px] px-7 h-[46px] rounded-lg shadow-sm hover:opacity-90 transition-opacity"
+            >
+              Get Started
+            </Button>
+          </Link>
+
         </div>
 
       </div>
