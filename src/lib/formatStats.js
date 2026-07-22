@@ -94,6 +94,12 @@ export function formatDashboardStats(role, rawStats = {}) {
           title: 'Total Revenue',
           value: `$${rawStats.totalRevenue ?? 0}`,
           icon: DollarSign,
+        },
+        {
+          id: 'total-opps',
+          title: 'Total Opportunities',
+          value: rawStats.totalOpportunities ?? 0,
+          icon: Briefcase,
         }
       ];
 
