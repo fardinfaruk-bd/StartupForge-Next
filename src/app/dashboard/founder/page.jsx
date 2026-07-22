@@ -4,6 +4,7 @@ import { DashboardStats } from '@/components/ui/DashboardStats';
 import { getUserSession } from '@/lib/core/session';
 import { loadFounderStats } from '@/lib/api/stats';
 import { formatDashboardStats } from '@/lib/formatStats';
+import FounderDashboardCharts from '@/components/ui/FounderDashboardCharts';
 
 const FounderDashboardHomePage = async () => {
   const user = await getUserSession();
@@ -28,6 +29,7 @@ const FounderDashboardHomePage = async () => {
   return (
     <div className="p-6 max-w-7xl mx-auto flex flex-col gap-6">
       <h2 className="text-3xl font-bold tracking-tight">Welcome, {user?.name}!</h2>
+      <FounderDashboardCharts data={rawStats} />
       <DashboardStats statsData={formattedStats} />
     </div>
   );
