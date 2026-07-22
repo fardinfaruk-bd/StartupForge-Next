@@ -1,10 +1,15 @@
 import React from 'react';
 import { getAllUsers } from '@/lib/api/users';
 import UserTable from './usersTable';
+import Loading from '@/app/loading';
 
 const Page = async () => {
     // Safely load all users on the server side
     const users = await getAllUsers() || [];
+
+    if(!users || users.length === 0) {
+        return <Loading />
+    }
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
