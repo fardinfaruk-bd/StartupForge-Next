@@ -1,9 +1,9 @@
 "use server";
-import { serverFetch } from "../core/server";
+import { protectedFetch, serverFetch } from "../core/server";
 import { getUserSession } from "../core/session";
 
 export const getFounderStartup = async (founderId) => {
-  return serverFetch(`/api/my/startup?founderId=${founderId}`);
+  return protectedFetch(`/api/my/startup?founderId=${founderId}`);
 };
 export const loggedInFounderStartup = async () => {
   const user = await getUserSession();
@@ -11,7 +11,7 @@ export const loggedInFounderStartup = async () => {
 };
 
 export const getActiveAllStartups = async () => {
-  return serverFetch(`/api/startups`);
+  return protectedFetch(`/api/startups`);
 };
 
 export const getFeaturedStartups = async () => {
@@ -26,5 +26,5 @@ export const getAllStartups = async (queryString) => {
   return serverFetch(`/api/startups?${queryString}`);
 };
 export const getStartupById = async (id) => {
-  return serverFetch(`/api/startups/${id}`);
+  return protectedFetch(`/api/startups/${id}`);
 };

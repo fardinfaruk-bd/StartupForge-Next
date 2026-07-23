@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from '@heroui/react';
 import { DashboardStats } from '@/components/ui/DashboardStats';
 import { getUserSession } from '@/lib/core/session';
-import { loadFounderStats } from '@/lib/api/stats';
+import { loadContributorStats, loadFounderStats } from '@/lib/api/stats';
 import { formatDashboardStats } from '@/lib/formatStats';
 import ContributorDashboardCharts from '@/components/ui/ContributorDashboardCharts';
 
@@ -18,7 +18,7 @@ const ContributorDashboardHomePage = async () => {
   }
 
   
-  const rawResponse = await loadFounderStats(user.role, user.id);
+  const rawResponse = await loadContributorStats(user.role, user.id);
   
   const rawStats = rawResponse?.stats || rawResponse;
   console.log(rawStats, "stats");

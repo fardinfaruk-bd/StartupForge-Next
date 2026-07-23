@@ -1,9 +1,7 @@
 import React from 'react';
 import { getApplicationByApplicantId } from '@/lib/api/applications';
 import { getUserSession } from '@/lib/core/session';
-// HeroUI Container element
-import { Chip } from "@heroui/react";
-import ApplicationsTable from '@/components/applications/ApplicationsTable';
+import ApplicationsTableContributor from '@/components/applications/ApplicationsTableContributor';
 
 export default async function ContributorApplicationPage() {
   const user = await getUserSession();
@@ -26,7 +24,7 @@ export default async function ContributorApplicationPage() {
         </div>
 
         {/* Presentational Data Table Grid Wrapper */}
-        <ApplicationsTable applications={applications}/>
+        <ApplicationsTableContributor applications={applications}/>
 
       </div>
     </div>

@@ -9,7 +9,6 @@ const MyStartupPage = async () => {
     const user = await getUserSession();
     
     const startup = await getFounderStartup(user?.id);
-
     return (
         <div>
             <StartupProfile founder={user} founderStartup={startup}></StartupProfile>

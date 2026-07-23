@@ -5,6 +5,14 @@ import StartupTable from './StartupTable';
 const Page = async () => {
     const startups = await getActiveAllStartups();
 
+    if (!startups || startups.length === 0) {
+        return (
+            <div className="text-center py-12 border border-dashed border-gray-200 rounded-xl bg-slate-50">
+                <p className="text-slate-500">No startups found in the system.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-7xl mx-auto p-6 md:p-10 space-y-6">
             <header className="flex flex-col gap-1">

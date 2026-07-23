@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     Form, 
     Fieldset, 
@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation';
 import { Building } from 'lucide-react';
 import EditProfileForm from '@/components/ui/EditProfileForm';
 
-
 const textInputClass = "w-full bg-zinc-900/50 border border-zinc-800 text-white rounded-lg px-3 py-2.5 outline-none placeholder:text-zinc-600 focus:border-zinc-700 transition";
 const selectBoxClass = "w-full flex flex-col gap-1";
 const triggerClasses = "w-full bg-zinc-900/50 border border-zinc-800 text-white rounded-lg px-3 py-2.5 flex items-center justify-between outline-none data-[hover=true]:border-zinc-700";
@@ -38,6 +37,20 @@ export default function StartupProfile({ founder, founderStartup }) {
     const [showForm, setShowForm] = useState(false);
 
     const router = useRouter();
+
+    // Keep state synchronized if server props revalidate/change
+    useEffect(() => {
+        setStartup(founderStartup);
+    }, [founderStartup]);
+
+    // Callback function passed to EditProfileForm to update UI instantly without reload
+    const handleProfileUpdate = (updatedFields) => {
+        setStartup(prev => ({
+            ...prev,
+            ...updatedFields
+        }));
+        router.refresh(); // Sync server state in the background
+    };
 
     const handleLogoUpload = async (e) => {
         const file = e.target.files[0];
@@ -109,8 +122,6 @@ export default function StartupProfile({ founder, founderStartup }) {
             founderId: founder.id 
         };
 
-        console.log("Submitted Startup Profile Data:", newStartupData);
-
         const payload = await createStartup(newStartupData);
 
         if (payload?.insertedId || payload?.modifiedCount || payload?._id) {
@@ -130,7 +141,6 @@ export default function StartupProfile({ founder, founderStartup }) {
         setLogoUrl('');
         setShowForm(true);
     };
-
 
     // --- VIEW CHECK 1: No Startup Registered & Not Editing/Registering ---
     if (!startup?._id && !showForm) {
@@ -180,7 +190,7 @@ export default function StartupProfile({ founder, founderStartup }) {
                             <div className="flex items-center gap-3">
                                 <h1 className="text-2xl font-bold text-white">{startup.name}</h1>
                                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium border ${getStatusStyles(startup.status)}`}>
-                                    {startup.status.charAt(0).toUpperCase() + startup.status.slice(1) || "N/A"}
+                                    {startup.status ? startup.status.charAt(0).toUpperCase() + startup.status.slice(1) : "N/A"}
                                 </span>
                             </div>
                             <a href={startup.websiteUrl} target="_blank" rel="noreferrer" className="text-sm text-zinc-400 hover:underline flex items-center gap-1 mt-1">
@@ -188,13 +198,16 @@ export default function StartupProfile({ founder, founderStartup }) {
                             </a>
                         </div>
                     </div>
-                    <EditProfileForm startup={startup} errors={errors} />
+                    {/* Pass handleProfileUpdate callback prop */}
+                    <EditProfileForm startup={startup} onUpdate={handleProfileUpdate} />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-zinc-900/30 border border-zinc-900 p-4 rounded-lg">
                         <span className="text-xs text-zinc-500 uppercase font-semibold block">Industry Category</span>
-                        <span className="text-zinc-300 font-medium mt-1 block">{startup?.industry.charAt(0).toUpperCase() + startup?.industry.slice(1)}</span>
+                        <span className="text-zinc-300 font-medium mt-1 block">
+                            {startup?.industry ? startup.industry.charAt(0).toUpperCase() + startup.industry.slice(1) : 'N/A'}
+                        </span>
                     </div>
                     <div className="bg-zinc-900/30 border border-zinc-900 p-4 rounded-lg">
                         <span className="text-xs text-zinc-500 uppercase font-semibold block">Location</span>

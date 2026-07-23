@@ -20,7 +20,7 @@ import {
 import { Person, At, Eye, EyeSlash, Camera, ShieldKeyhole } from "@gravity-ui/icons";
 import AuthLeftUi from "@/components/ui/AuthLeftUi";
 import { toast } from "react-toastify";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { FcGoogle } from "react-icons/fc";
 
 export default function RegisterPage() {

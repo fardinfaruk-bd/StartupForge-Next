@@ -24,7 +24,6 @@ export default async function OpportunityDetails({ params }) {
 
   const opportunity = await getOpportunityById(id);
   const user = await getUserSession();
-  console.log(opportunity);
 
   if (opportunity.ok === false) {
     return <NotFound />

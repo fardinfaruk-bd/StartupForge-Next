@@ -21,7 +21,6 @@ const AlertDialogBtn = ({ opportunity }) => {
 
     return (
         <AlertDialog>
-            {/* FIX: Wrapped the button in a Trigger component */}
             <AlertDialog.Trigger>
                 <Button variant='outline' className="border border-red-500 text-red-500">
                     <TrashBin />

@@ -18,12 +18,12 @@ const formatDate = (dateString) => {
     return `${day}-${month}-${year}`;
 };
 
-const OpportunitiesTable = ({ applications }) => {
+const ApplicationsTableContributor = ({ applications }) => {
 
     return (
         <div>
             <div className='p-4'>
-                {applications.length > 0 ? (
+                {applications?.length > 0 ? (
                     <Table>
                         <Table.ScrollContainer>
                             <Table.Content aria-label="Team members" className="min-w-150">
@@ -80,4 +80,4 @@ const OpportunitiesTable = ({ applications }) => {
     );
 };
 
-export default OpportunitiesTable;
+export default ApplicationsTableContributor;

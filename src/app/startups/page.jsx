@@ -1,8 +1,6 @@
 import StartupFiltersContainer from '@/components/startups/StartupsFiltersContainer';
 import { getAllStartups } from '@/lib/api/startup';
-import { Magnifier } from '@gravity-ui/icons';
 import React from 'react';
-import Loading from '../loading';
 
 const page = async ({ searchParams }) => {
     const filters = await searchParams;
@@ -32,9 +30,6 @@ const page = async ({ searchParams }) => {
                     {startups?.length} Active {startups?.length === 1 ? 'Company' : 'Companies'}
                 </span>
             </div>
-            {!startups &&
-                <Loading />
-            }
 
             <StartupFiltersContainer startups={startups} total={total} filters={filters} />
 

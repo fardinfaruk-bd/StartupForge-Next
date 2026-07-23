@@ -4,9 +4,7 @@ import UserTable from './usersTable';
 import Loading from '@/app/loading';
 
 const Page = async () => {
-    // Safely load all users on the server side
     const users = await getAllUsers() || [];
-
     if(!users || users.length === 0) {
         return <Loading />
     }

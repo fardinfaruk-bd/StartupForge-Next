@@ -1,5 +1,5 @@
-import { serverFetch } from "../core/server";
+import { protectedFetch } from "../core/server";
 
 export const getAllTransactions = async () => {
-    return serverFetch("/api/payment");
+    return protectedFetch("/api/payment");
 }

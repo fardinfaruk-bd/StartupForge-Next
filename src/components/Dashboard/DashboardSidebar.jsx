@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Gear, LayoutSideContentLeft, Person } from "@gravity-ui/icons";
+import { LayoutSideContentLeft } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { LayoutGrid, List, User, Rocket, PlusCircle, Layers, CreditCard, ShieldUser, ArrowLeftRight, User2, LogOut } from "lucide-react";
 import Link from "next/link";
@@ -9,9 +10,14 @@ import { useSession } from "@/lib/auth-client";
 
 export function DashboardSidebar() {
     const pathname = usePathname();
+    const [isMounted, setIsMounted] = useState(false);
 
-    const { data: session, isPending } = useSession()
-    
+    const { data: session, isPending } = useSession();
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const contributorNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/contributor" },
         { icon: List, label: "My Applications", href: "/dashboard/contributor/applications" },
@@ -26,7 +32,6 @@ export function DashboardSidebar() {
         { icon: User2, label: "Applications", href: "/dashboard/founder/applications" },
     ];
 
-    
     const adminNavItems = [
         { icon: LayoutGrid, label: "Overview", href: "/dashboard/admin" },
         { icon: ShieldUser, label: "Manage Users", href: "/dashboard/admin/users" },
@@ -35,13 +40,15 @@ export function DashboardSidebar() {
         { icon: CreditCard, label: "Transactions", href: "/dashboard/admin/transactions" },
     ];
 
-
     const navLinkMap = {
         contributor: contributorNavItems,
         founder: founderNavItems,
         admin: adminNavItems
-    }
-    const navLinks = navLinkMap[session?.user?.role || "contributor"];
+    };
+
+    // Determine current role safely
+    const currentRole = isMounted ? session?.user?.role : undefined;
+    const navLinks = navLinkMap[currentRole] || contributorNavItems;
 
     const bottomNavItems = [
         { icon: LogOut, label: "Logout", href: "/logout" },
@@ -63,7 +70,6 @@ export function DashboardSidebar() {
                                 : "text-slate-400 hover:bg-slate-800/40 hover:text-slate-100"
                             }`}
                     >
-                        {/* Hidden indicator that slides in/becomes visible if active */}
                         {isActive && (
                             <span className="absolute left-0 top-1/4 h-1/2 w-1 rounded-r-full bg-[#0a1220]/80" />
                         )}
@@ -88,8 +94,8 @@ export function DashboardSidebar() {
                     <h2 className="text-xl font-bold tracking-tight bg-linear-to-r from-[#76f1cc] to-emerald-300 bg-clip-text text-transparent">
                         StartupForge
                     </h2>
-                    <p className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
-                        {session?.user?.role || "Contributor"} Portal
+                    <p className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5 min-h-[16px]">
+                        {isMounted ? `${currentRole || "Contributor"} Portal` : "Portal"}
                     </p>
                 </div>
 
@@ -107,8 +113,8 @@ export function DashboardSidebar() {
 
     return (
         <>
-            {/* Desktop Sidebar Sidebar */}
-            <aside className="hidden  w-64 shrink-0 border-r border-slate-900 bg-[#0a1220] lg:block">
+            {/* Desktop Sidebar */}
+            <aside className="hidden w-64 shrink-0 border-r border-slate-900 bg-[#0a1220] lg:block">
                 {navContent}
             </aside>
 

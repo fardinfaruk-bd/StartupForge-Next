@@ -7,20 +7,8 @@ export const createOpportunity = async (newOpportunityData) => {
 };
 
 export const updateOpportunity = async (id, updatedData) => {
-  try {
-    const res = await serverMutation(
-      `/api/opportunities/${id}`,
-      updatedData,
-      "PATCH",
-    );
-    if (!res.ok) {
-      return { error: `Server error: ${res.status}` };
-    }
-
-    return await res.json();
-  } catch (err) {
-    return { error: "Network error or failed to parse response." };
-  }
+    const res = await serverMutation(`/api/opportunities/${id}`,updatedData, "PATCH",);
+    return res;
 };
 
 export const deleteOpportunity = async (id) => {

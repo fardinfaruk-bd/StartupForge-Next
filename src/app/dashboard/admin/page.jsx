@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from '@heroui/react';
 import { DashboardStats } from '@/components/ui/DashboardStats';
 import { getUserSession } from '@/lib/core/session';
-import { loadFounderStats } from '@/lib/api/stats';
+import { loadAdminStats, loadFounderStats } from '@/lib/api/stats';
 import { formatDashboardStats } from '@/lib/formatStats';
 import ContributorDashboardCharts from '@/components/ui/ContributorDashboardCharts';
 import AdminDashboardCharts from '@/components/ui/AdminDashboardCharts';
@@ -19,7 +19,7 @@ const AdminDashboardHomePage = async () => {
   }
 
   
-  const rawResponse = await loadFounderStats(user.role);
+  const rawResponse = await loadAdminStats(user.role);
   
   const rawStats = rawResponse?.stats || rawResponse;
   console.log(rawStats, "stats");

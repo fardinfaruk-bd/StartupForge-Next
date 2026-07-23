@@ -1,4 +1,4 @@
-import { serverFetch } from "../core/server";
+import { protectedFetch, serverFetch } from "../core/server";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -9,8 +9,7 @@ export const getAllOpportunities = async (queryString) => {
 
 
 export const getOpportunityById = async (id) => {
-  const res = await fetch(`${baseUrl}/api/opportunities/${id}`);
-  return res.json();
+  return protectedFetch(`/api/opportunities/${id}`);
 };
 
 
@@ -19,10 +18,10 @@ export async function getOpenOpportunities( queryString ) {
 }
 
 export const getOpportunity = async (id) => {
-  return serverFetch(`/api/my/opportunities?founderId=${id}`);
+  return protectedFetch(`/api/my/opportunities?founderId=${id}`);
 };
 
 export const getStartupOpportunity = async (id) => {
-  return serverFetch(`/api/opportunities?startupId=${id}`);
+  return protectedFetch(`/api/opportunities?startupId=${id}`);
 };
 
