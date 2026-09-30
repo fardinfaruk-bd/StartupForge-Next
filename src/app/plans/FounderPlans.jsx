@@ -73,7 +73,7 @@ export default function FounderPlans() {
       buttonText: "Contact Sales",
       buttonVariant: "flat",
       buttonColor: "secondary",
-      cardStyles: "bg-neutral-900 text-neutral-50 border-neutral-800 dark:bg-content1 dark:text-foreground dark:border-default-200",
+      cardStyles: "bg-neutral-900 text-white border-neutral-800 dark:bg-content1 dark:text-foreground dark:border-default-200",
       iconBg: "bg-neutral-800 dark:bg-default-100",
     },
   ];

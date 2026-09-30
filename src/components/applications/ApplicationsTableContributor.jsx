@@ -66,11 +66,11 @@ const ApplicationsTableContributor = ({ applications }) => {
                         </Table.Footer>
                     </Table>)
                     : <div className="min-h-[40vh] bg-gray-200 flex flex-col items-center justify-center rounded-lg">
-                        <Plus size={100} />
+                        <Plus size={80} />
                         <h1 className="text-3xl font-bold">No Application</h1>
                         <p className="text-gray-500">Please apply for an opportunity First</p>
                         <div className="flex gap-5 mt-5">
-                            <Link href="/opportunity"><Button variant="primary" className="bg-[#0a1220] text-slate-400 font-bold"><Eye />View Opportunities</Button></Link>
+                            <Link href="/opportunities"><Button variant="primary" className="bg-[#0a1220] text-slate-400 font-bold"><Eye />View Opportunities</Button></Link>
                             <Link href="/dashboard/contributor"><Button variant="outline" className="border-2 border-[#0a1220] "><LayoutGrid /> Go Overview</Button></Link>
                         </div>
                     </div>
