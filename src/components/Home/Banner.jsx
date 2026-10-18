@@ -19,7 +19,6 @@ import {
 import { useSession } from "@/lib/auth-client";
 import InteractiveLucidGradient from "./InteractiveLucidGradient";
 
-/* ─── Floating particle component ─────────────────────── */
 function Particle({ style, animClass }) {
   return (
     <span
@@ -30,75 +29,7 @@ function Particle({ style, animClass }) {
   );
 }
 
-/* ─── Floating Lucid Glass Card Component ──────────────── */
-function LucidGlassCard({ icon: Icon, title, subtitle, tag, accent, delay, floatClass, style }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.85, y: 25 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={`hidden lg:flex absolute z-10 items-center gap-3.5 px-4 py-3 rounded-2xl border backdrop-blur-xl pointer-events-auto select-none ${floatClass}`}
-      style={{
-        background: "rgba(255, 255, 255, 0.035)",
-        borderColor: "rgba(255, 255, 255, 0.12)",
-        boxShadow: `0 20px 40px -15px rgba(0,0,0,0.6), 0 0 20px 0px ${accent}22`,
-        ...style,
-      }}
-      whileHover={{
-        y: -4,
-        scale: 1.04,
-        borderColor: accent,
-        boxShadow: `0 25px 50px -10px rgba(0,0,0,0.8), 0 0 30px 4px ${accent}44`,
-        transition: { duration: 0.2 },
-      }}
-    >
-      {/* Corner Refraction Glow */}
-      <div
-        className="absolute inset-0 rounded-2xl pointer-events-none opacity-40"
-        style={{
-          background: `radial-gradient(circle at 10% 20%, ${accent}25 0%, transparent 60%)`,
-        }}
-      />
 
-      {/* Lucide Icon in Glass Pill */}
-      <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border relative"
-        style={{
-          background: `${accent}18`,
-          borderColor: `${accent}40`,
-        }}
-      >
-        <Icon size={18} style={{ color: accent }} strokeWidth={2.2} />
-      </div>
-
-      {/* Details */}
-      <div className="flex flex-col text-left">
-        <span className="text-white text-xs font-bold tracking-tight">
-          {title}
-        </span>
-        <span className="text-gray-400 text-[11px] font-medium leading-tight mt-0.5">
-          {subtitle}
-        </span>
-      </div>
-
-      {/* Badge Tag */}
-      {tag && (
-        <span
-          className="ml-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap"
-          style={{
-            background: `${accent}15`,
-            borderColor: `${accent}35`,
-            color: accent,
-          }}
-        >
-          {tag}
-        </span>
-      )}
-    </motion.div>
-  );
-}
-
-/* ─── Marquee tag data ─────────────────────────────────── */
 const MARQUEE_TAGS = [
   "🧑‍💻 Frontend Engineer",
   "📊 Product Manager",
@@ -156,60 +87,8 @@ export default function HeroBanner() {
       {/* ── INTERACTIVE LUCID GRADIENT BACKGROUND (Real-Time Mouse Reactive) ── */}
       <InteractiveLucidGradient />
 
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ── 4. FLOATING LUCID GLASS CARDS (LUCIDE-POWERED) ─────── */}
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* Top Left Lucid Card */}
-      <LucidGlassCard
-        icon={Code}
-        title="Founding Engineer"
-        subtitle="NovaPay · Series A"
-        tag="$150k + Equity"
-        accent="#0DFFCA"
-        delay={0.7}
-        floatClass="animate-float-a"
-        style={{ top: "18%", left: "4%" }}
-      />
-
-      {/* Bottom Left Lucid Card */}
-      <LucidGlassCard
-        icon={Sparkles}
-        title="AI / ML Engineer"
-        subtitle="HyperScale · Seed"
-        tag="Remote"
-        accent="#FFD060"
-        delay={1.0}
-        floatClass="animate-float-b"
-        style={{ top: "62%", left: "5%" }}
-      />
-
-      {/* Top Right Lucid Card */}
-      <LucidGlassCard
-        icon={Briefcase}
-        title="Head of Product"
-        subtitle="GreenStack · Climate"
-        tag="$140k–$175k"
-        accent="#6C8EFF"
-        delay={0.85}
-        floatClass="animate-float-c"
-        style={{ top: "20%", right: "4%" }}
-      />
-
-      {/* Bottom Right Lucid Card */}
-      <LucidGlassCard
-        icon={CheckCircle2}
-        title="Offer Accepted!"
-        subtitle="Matched in 48 hours"
-        tag="Verified"
-        accent="#0DFFCA"
-        delay={1.15}
-        floatClass="animate-float-a"
-        style={{ top: "64%", right: "5%" }}
-      />
-
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ── 5. FLOATING GLOW PARTICLES ─────────────────────────── */}
-      {/* ────────────────────────────────────────────────────────── */}
+      
+      {/* ──────────────────FLOATING GLOW PARTICLES ──────────────────────────*/}
       <Particle
         animClass="animate-float-a"
         style={{
@@ -260,9 +139,8 @@ export default function HeroBanner() {
         }}
       />
 
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ── 6. FOREGROUND HERO CONTENT ─────────────────────────── */}
-      {/* ────────────────────────────────────────────────────────── */}
+      
+      {/* ─────────────────────────── 6. FOREGROUND HERO CONTENT ─────────────────────────── */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center pt-8">
         {/* Badge pill */}
         <motion.div
@@ -326,7 +204,6 @@ export default function HeroBanner() {
           ))}
         </motion.h1>
 
-        {/* Subtext */}
         <motion.p
           className="mt-6 text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
@@ -337,7 +214,6 @@ export default function HeroBanner() {
           Browse roles, apply in minutes, and shape the future of global industries.
         </motion.p>
 
-        {/* ── Interactive Lucid Quick-Search Bar ── */}
         <motion.form
           onSubmit={handleSearch}
           initial={{ opacity: 0, y: 20 }}
@@ -396,8 +272,8 @@ export default function HeroBanner() {
 
           {/* Quick Keywords */}
           <div className="flex items-center justify-center gap-2 flex-wrap mt-3 text-xs text-gray-400">
-            <span className="text-gray-500 font-medium">Popular:</span>
-            {["React", "Fullstack", "Product Designer", "AI / ML", "Remote"].map((tag) => (
+            <span className="text-[#0DFFCA] font-medium">Popular:</span>
+            {["Frontend", "Full stack", "Data Scientist", "UX Designer", "Cloud Engineer"].map((tag) => (
               <button
                 key={tag}
                 type="button"
@@ -464,16 +340,13 @@ export default function HeroBanner() {
         </motion.div>
       </div>
 
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ── 7. LUCID FROSTED MARQUEE STRIP ─────────────────────── */}
-      {/* ────────────────────────────────────────────────────────── */}
+      {/* ─────────────────────── 7. LUCID FROSTED MARQUEE STRIP ─────────────────────── */}
       <motion.div
         className="relative z-10 w-full mt-16 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 0.7 }}
       >
-        {/* Left & Right gradient fade masks */}
         <div
           className="absolute inset-y-0 left-0 w-28 z-10 pointer-events-none"
           style={{
@@ -508,9 +381,7 @@ export default function HeroBanner() {
         </div>
       </motion.div>
 
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ── 8. BOTTOM SEAMLESS FADE INTO STATS SECTION ─────────── */}
-      {/* ────────────────────────────────────────────────────────── */}
+      {/* ─────────── BOTTOM SEAMLESS FADE INTO STATS SECTION ─────────── */}
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-10"
