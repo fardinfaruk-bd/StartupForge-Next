@@ -98,21 +98,32 @@ export default function FounderPlans() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20 py-24 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-transparent text-foreground antialiased selection:bg-primary/20 py-16 px-4 sm:px-6 lg:px-8">
       {/* Header Section */}
-      <div className="max-w-3xl mx-auto text-center mb-20 flex flex-col items-center">
-        <Chip
-          variant="flat"
-          color="primary"
-          size="sm"
-          className="mb-4 font-semibold px-3 py-1"
+      <div className="max-w-3xl mx-auto text-center mb-16 flex flex-col items-center">
+        <span
+          className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide border mb-4"
+          style={{
+            background: "rgba(13,255,202,0.08)",
+            borderColor: "rgba(13,255,202,0.2)",
+            color: "#0DFFCA",
+          }}
         >
           Pricing Plans
-        </Chip>
-        <h1 className="text-4xl font-black tracking-tight sm:text-5xl text-foreground mb-4">
-          Founder Plans
+        </span>
+        <h1 className="text-4xl font-black tracking-tight sm:text-5xl text-white mb-4">
+          Founder{" "}
+          <span
+            style={{
+              background: "linear-gradient(90deg, #0DFFCA, #6C8EFF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Plans
+          </span>
         </h1>
-        <p className="text-lg text-default-500 max-w-xl">
+        <p className="text-lg text-gray-400 max-w-xl">
           Select the perfect infrastructure tier to build your core startup team.
         </p>
       </div>

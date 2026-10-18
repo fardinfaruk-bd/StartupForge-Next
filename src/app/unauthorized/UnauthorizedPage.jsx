@@ -7,7 +7,7 @@ import { ShieldAlert, Home } from "lucide-react";
 
 export default function UnauthorizedPage() {
     return (
-        <div className="min-h-screen antialiased flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 selection:bg-red-500/20">
+        <div className="min-h-[80vh] bg-transparent antialiased flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 selection:bg-red-500/20 text-white">
             <div className="max-w-md w-full text-center space-y-8 relative">
 
                 {/* Ambient Background Radial Glow */}

@@ -78,14 +78,14 @@ export default function LoginPageForm() {
     };
 
     return (
-        <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950">
+        <div className="flex min-h-screen bg-transparent">
 
             {/* LEFT SIDE: Premium Decorative Panel */}
             <AuthLeftUi />
 
             {/* RIGHT SIDE: Interactive Form Flow */}
             <div className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
-                <Card className="w-full max-w-md p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                <Card className="w-full max-w-md p-6 shadow-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl">
 
                     {/* Header Container */}
                     <div className="flex flex-col items-center justify-center gap-1 pb-6 border-b border-zinc-100 dark:border-zinc-800 mb-6 text-center">

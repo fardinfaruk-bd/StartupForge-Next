@@ -81,8 +81,8 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
       />
 
       {/* Item Metrics Counter */}
-      <div className="text-sm text-slate-500 font-medium pl-1 my-3">
-        Showing <span className="text-slate-800 font-semibold">{opportunities.length}</span> {opportunities.length === 1 ? 'opportunity' : 'opportunities'}
+      <div className="text-sm text-gray-400 font-medium pl-1 my-3">
+        Showing <span className="text-[#0DFFCA] font-semibold">{opportunities.length}</span> {opportunities.length === 1 ? 'opportunity' : 'opportunities'}
       </div>
 
       {/* Main Grid Render */}
@@ -134,10 +134,10 @@ export default function OpportunityFiltersContainer({ opportunities, total, filt
           </Pagination>
         </>
       ) : (
-        <div className="text-center py-16 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 max-w-xl mx-auto mt-6">
-          <Magnifier className="mx-auto text-slate-300 text-4xl mb-3" />
-          <p className="text-slate-600 font-medium text-lg">No results found</p>
-          <p className="text-slate-400 text-sm mt-1 max-w-xs mx-auto">
+        <div className="text-center py-16 border-2 border-dashed border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-md max-w-xl mx-auto mt-6">
+          <Magnifier className="mx-auto text-gray-500 text-4xl mb-3" />
+          <p className="text-white font-medium text-lg">No results found</p>
+          <p className="text-gray-400 text-sm mt-1 max-w-xs mx-auto">
             Try adjusting your keywords or clearing the dropdown filters to search the database again.
           </p>
         </div>

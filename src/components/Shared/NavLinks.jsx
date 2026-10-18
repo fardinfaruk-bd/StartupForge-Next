@@ -8,10 +8,14 @@ const NavLinks = ({href, children}) => {
     
     const isActive = pathname === href;
     return (
-        <Link href={href} className={`text-sm font-medium transition-colors no-underline ${isActive
-                                ? "text-[#002447] font-semibold border-b-2 border-[#107064] pb-1 rounded-none"
-                                : "text-[#4a5568] hover:text-[#002447]"
-                                }`}>
+        <Link
+            href={href}
+            className={`text-sm font-medium transition-colors no-underline ${isActive
+                ? "font-semibold border-b-2 pb-1 rounded-none"
+                : "text-gray-400 hover:text-white"
+                }`}
+            style={isActive ? { color: "#0DFFCA", borderColor: "#0DFFCA" } : {}}
+        >
             {children}
         </Link>
     );

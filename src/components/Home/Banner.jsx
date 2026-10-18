@@ -1,131 +1,524 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Link } from "@heroui/react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
-
-// Explicit Swiper Core Styles
-import "swiper/css";
-import "swiper/css/effect-fade";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  Briefcase,
+  Search,
+  Code,
+  Sparkles,
+  CheckCircle2,
+  TrendingUp,
+  Building2,
+  DollarSign,
+  Zap,
+} from "lucide-react";
 import { useSession } from "@/lib/auth-client";
+import InteractiveLucidGradient from "./InteractiveLucidGradient";
 
-export default function HeroBanner() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { data: session, isPending } = useSession();
-  const user = session?.user;
-
-  // Structured slides containing unique text and its corresponding background image
-  const slides = [
-    {
-      imgUrl: "https://i.ibb.co.com/nsZBj9d4/Startup-Forge-discussion-202606181237-2.jpg",
-      title: "Build the Future, One Team Member at a Time",
-      description: "StartupForge connects visionary founders with top-tier talent to build the next generation of industry-shaping startups."
-    },
-    {
-      imgUrl: "https://i.ibb.co.com/rRsxM4Yw/Startup-Forge-discussion-202606181237-1.jpg",
-      title: "Empower Your Startup Journey with Expert Talent",
-      description: "Find experienced professionals who share your drive and vision. Scale your operations with confidence and precision."
-    },
-    {
-      imgUrl: "https://i.ibb.co.com/4nMFkJ4L/Startup-Forge-discussion-202606181237.jpg",
-      title: "Where Innovators and Creators Connect",
-      description: "Bridging the gap between groundbreaking startup concepts and the technical execution of top-tier industry minds."
-    }
-  ];
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    },
-    exit: {
-      opacity: 0,
-      y: -15,
-      transition: { duration: 0.3, ease: "easeIn" }
-    }
-  };
-
+/* ─── Floating particle component ─────────────────────── */
+function Particle({ style, animClass }) {
   return (
-    // RESPONSIVE FIX: Changed h-[80vh] to dynamic h-auto + padding on mobile, clamping to h-[85vh] on desktop to prevent text overflow.
-    <section className="relative w-full min-h-[550px] sm:min-h-[600px] h-auto lg:h-[85vh] flex items-center justify-center overflow-hidden bg-white py-16 sm:py-20 lg:py-0">
+    <span
+      aria-hidden="true"
+      className={`absolute rounded-full pointer-events-none ${animClass}`}
+      style={style}
+    />
+  );
+}
 
-      {/* 1. THE CAROUSEL BACKGROUND LAYER */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <Swiper
-          modules={[Autoplay, EffectFade]}
-          effect={"fade"}
-          autoplay={{
-            delay: 4500,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          className="w-full h-full"
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index} className="relative w-full h-full">
-              <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url(${slide.imgUrl})` }}
-              />
-              {/* White mask layer matching your design mockup palette */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/60" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+/* ─── Floating Lucid Glass Card Component ──────────────── */
+function LucidGlassCard({ icon: Icon, title, subtitle, tag, accent, delay, floatClass, style }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85, y: 25 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={`hidden lg:flex absolute z-10 items-center gap-3.5 px-4 py-3 rounded-2xl border backdrop-blur-xl pointer-events-auto select-none ${floatClass}`}
+      style={{
+        background: "rgba(255, 255, 255, 0.035)",
+        borderColor: "rgba(255, 255, 255, 0.12)",
+        boxShadow: `0 20px 40px -15px rgba(0,0,0,0.6), 0 0 20px 0px ${accent}22`,
+        ...style,
+      }}
+      whileHover={{
+        y: -4,
+        scale: 1.04,
+        borderColor: accent,
+        boxShadow: `0 25px 50px -10px rgba(0,0,0,0.8), 0 0 30px 4px ${accent}44`,
+        transition: { duration: 0.2 },
+      }}
+    >
+      {/* Corner Refraction Glow */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none opacity-40"
+        style={{
+          background: `radial-gradient(circle at 10% 20%, ${accent}25 0%, transparent 60%)`,
+        }}
+      />
+
+      {/* Lucide Icon in Glass Pill */}
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border relative"
+        style={{
+          background: `${accent}18`,
+          borderColor: `${accent}40`,
+        }}
+      >
+        <Icon size={18} style={{ color: accent }} strokeWidth={2.2} />
       </div>
 
-      {/* 2. THE FOREGROUND CONTENT LAYER */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center justify-center">
+      {/* Details */}
+      <div className="flex flex-col text-left">
+        <span className="text-white text-xs font-bold tracking-tight">
+          {title}
+        </span>
+        <span className="text-gray-400 text-[11px] font-medium leading-tight mt-0.5">
+          {subtitle}
+        </span>
+      </div>
 
-        {/* ANIMATED TEXT WRAPPER (Changes on index swap) */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="w-full flex flex-col items-center justify-center"
+      {/* Badge Tag */}
+      {tag && (
+        <span
+          className="ml-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap"
+          style={{
+            background: `${accent}15`,
+            borderColor: `${accent}35`,
+            color: accent,
+          }}
+        >
+          {tag}
+        </span>
+      )}
+    </motion.div>
+  );
+}
+
+/* ─── Marquee tag data ─────────────────────────────────── */
+const MARQUEE_TAGS = [
+  "🧑‍💻 Frontend Engineer",
+  "📊 Product Manager",
+  "🎨 UI/UX Designer",
+  "⚙️ Backend Developer",
+  "📣 Growth Marketer",
+  "🛡️ Security Engineer",
+  "📱 Mobile Developer",
+  "🤖 ML / AI Engineer",
+  "💼 Business Analyst",
+  "☁️ DevOps / Cloud",
+  "✍️ Content Strategist",
+  "📈 Data Scientist",
+];
+
+/* ─── Word-by-word animation ──────────────────────────── */
+const wordVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+const singleWord = {
+  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+export default function HeroBanner() {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [workTypeFilter, setWorkTypeFilter] = useState("all");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("search", searchQuery.trim());
+    if (workTypeFilter !== "all") params.set("workType", workTypeFilter);
+    router.push(`/opportunities?${params.toString()}`);
+  };
+
+  const headline = "Find Your Next Big Opportunity at a Startup";
+  const words = headline.split(" ");
+
+  return (
+    <section
+      className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      style={{ background: "var(--sf-navy)" }}
+    >
+      {/* ── INTERACTIVE LUCID GRADIENT BACKGROUND (Real-Time Mouse Reactive) ── */}
+      <InteractiveLucidGradient />
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* ── 4. FLOATING LUCID GLASS CARDS (LUCIDE-POWERED) ─────── */}
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* Top Left Lucid Card */}
+      <LucidGlassCard
+        icon={Code}
+        title="Founding Engineer"
+        subtitle="NovaPay · Series A"
+        tag="$150k + Equity"
+        accent="#0DFFCA"
+        delay={0.7}
+        floatClass="animate-float-a"
+        style={{ top: "18%", left: "4%" }}
+      />
+
+      {/* Bottom Left Lucid Card */}
+      <LucidGlassCard
+        icon={Sparkles}
+        title="AI / ML Engineer"
+        subtitle="HyperScale · Seed"
+        tag="Remote"
+        accent="#FFD060"
+        delay={1.0}
+        floatClass="animate-float-b"
+        style={{ top: "62%", left: "5%" }}
+      />
+
+      {/* Top Right Lucid Card */}
+      <LucidGlassCard
+        icon={Briefcase}
+        title="Head of Product"
+        subtitle="GreenStack · Climate"
+        tag="$140k–$175k"
+        accent="#6C8EFF"
+        delay={0.85}
+        floatClass="animate-float-c"
+        style={{ top: "20%", right: "4%" }}
+      />
+
+      {/* Bottom Right Lucid Card */}
+      <LucidGlassCard
+        icon={CheckCircle2}
+        title="Offer Accepted!"
+        subtitle="Matched in 48 hours"
+        tag="Verified"
+        accent="#0DFFCA"
+        delay={1.15}
+        floatClass="animate-float-a"
+        style={{ top: "64%", right: "5%" }}
+      />
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* ── 5. FLOATING GLOW PARTICLES ─────────────────────────── */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <Particle
+        animClass="animate-float-a"
+        style={{
+          width: 6,
+          height: 6,
+          background: "#0DFFCA",
+          boxShadow: "0 0 14px 4px rgba(13,255,202,0.8)",
+          top: "16%",
+          left: "22%",
+          opacity: 0.7,
+        }}
+      />
+      <Particle
+        animClass="animate-float-b"
+        style={{
+          width: 5,
+          height: 5,
+          background: "#6C8EFF",
+          boxShadow: "0 0 12px 3px rgba(108,142,255,0.7)",
+          top: "68%",
+          left: "20%",
+          opacity: 0.6,
+        }}
+      />
+      <Particle
+        animClass="animate-float-c"
+        style={{
+          width: 7,
+          height: 7,
+          background: "#0DFFCA",
+          boxShadow: "0 0 16px 5px rgba(13,255,202,0.7)",
+          top: "28%",
+          right: "22%",
+          opacity: 0.6,
+        }}
+      />
+      <Particle
+        animClass="animate-float-a"
+        style={{
+          width: 5,
+          height: 5,
+          background: "#FFD060",
+          boxShadow: "0 0 10px 3px rgba(255,208,96,0.6)",
+          top: "72%",
+          right: "20%",
+          opacity: 0.5,
+          animationDelay: "2s",
+        }}
+      />
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* ── 6. FOREGROUND HERO CONTENT ─────────────────────────── */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center pt-8">
+        {/* Badge pill */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-7"
+        >
+          <span
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border backdrop-blur-md"
+            style={{
+              background: "rgba(13,255,202,0.08)",
+              borderColor: "rgba(13,255,202,0.28)",
+              color: "#0DFFCA",
+              boxShadow: "0 0 20px rgba(13,255,202,0.15)",
+            }}
           >
-            {/* Dynamic Headline */}
-            {/* RESPONSIVE FIX: Adjusted sizes text-2xl (mobile) -> text-4xl (tablet) -> text-[56px] (desktop) */}
-            <motion.h1
-              variants={textVariants}
-              className="text-[#002447] font-bold text-2xl sm:text-4xl md:text-5xl lg:text-[56px] leading-[1.2] sm:leading-[1.15] tracking-tight max-w-[800px]"
-            >
-              {slides[activeIndex].title}
-            </motion.h1>
+            <span className="relative flex h-2 w-2">
+              <span
+                className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                style={{ background: "#0DFFCA" }}
+              />
+              <span
+                className="relative inline-flex rounded-full h-2 w-2"
+                style={{ background: "#0DFFCA" }}
+              />
+            </span>
+            500+ Active Startup Opportunities
+          </span>
+        </motion.div>
 
-            {/* Dynamic Subtitle description */}
-            {/* RESPONSIVE FIX: Text base sizes scaled down beautifully for ultra-small mobile displays */}
-            <motion.p
-              variants={textVariants}
-              transition={{ delay: 0.15 }}
-              className="mt-4 sm:mt-6 text-[#1a202c] text-xs sm:text-base md:text-[17px] max-w-xl sm:max-w-2xl font-semibold leading-[1.6]"
+        {/* Animated headline */}
+        <motion.h1
+          className="font-bold text-white leading-[1.08] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-[72px] max-w-[880px]"
+          variants={wordVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={i}
+              variants={singleWord}
+              className="inline-block mr-[0.22em]"
             >
-              {slides[activeIndex].description}
-            </motion.p>
-          </motion.div>
-        </AnimatePresence>
+              {word === "Startup" ? (
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #0DFFCA 0%, #6C8EFF 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    textShadow: "0 0 40px rgba(13,255,202,0.3)",
+                  }}
+                >
+                  {word}
+                </span>
+              ) : (
+                word
+              )}
+            </motion.span>
+          ))}
+        </motion.h1>
 
-        {/* STATIC CTA BUTTONS LAYER (Stays fixed, no animation on swipe) */}
-        {/* RESPONSIVE FIX: flex-col (mobile) -> flex-row (tablet & up) with full width buttons on phone layout */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none px-4 sm:px-0">
-          <Link href={user ? `/dashboard/${user?.role}` : "/login"}>
+        {/* Subtext */}
+        <motion.p
+          className="mt-6 text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6, ease: "easeOut" }}
+        >
+          StartupForge connects talented professionals with high-growth startups.
+          Browse roles, apply in minutes, and shape the future of global industries.
+        </motion.p>
+
+        {/* ── Interactive Lucid Quick-Search Bar ── */}
+        <motion.form
+          onSubmit={handleSearch}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.05, duration: 0.6, ease: "easeOut" }}
+          className="mt-8 w-full max-w-2xl relative z-20"
+        >
+          <div
+            className="flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl border backdrop-blur-xl transition-all"
+            style={{
+              background: "rgba(255, 255, 255, 0.045)",
+              borderColor: "rgba(255, 255, 255, 0.12)",
+              boxShadow:
+                "0 20px 40px -15px rgba(0,0,0,0.7), 0 0 24px rgba(13,255,202,0.1)",
+            }}
+          >
+            {/* Search Input */}
+            <div className="flex items-center gap-3 px-3 py-2 flex-1 w-full">
+              <Search size={18} className="text-[#0DFFCA] shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Role title, tech stack (e.g. React, Python), or company..."
+                className="bg-transparent text-white text-sm placeholder-gray-400 outline-none w-full"
+              />
+            </div>
+
+            {/* WorkType Select Dropdown */}
+            <div className="flex items-center w-full sm:w-auto px-2">
+              <select
+                value={workTypeFilter}
+                onChange={(e) => setWorkTypeFilter(e.target.value)}
+                className="bg-white/[0.06] border border-white/10 text-gray-200 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-[#0DFFCA]/40 transition"
+              >
+                <option value="all" className="bg-[#091528] text-white">All Locations</option>
+                <option value="remote" className="bg-[#091528] text-white">Remote</option>
+                <option value="hybrid" className="bg-[#091528] text-white">Hybrid</option>
+                <option value="onsite" className="bg-[#091528] text-white">On-site</option>
+              </select>
+            </div>
+
+            {/* Submit Button */}
             <Button
-              className="w-full sm:w-auto bg-[#0f6c61] text-white font-medium text-[15px] px-7 h-[46px] rounded-lg shadow-sm hover:opacity-90 transition-opacity"
+              type="submit"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-[44px] rounded-xl font-semibold text-sm text-[#030C1B] transition-transform hover:scale-105 shrink-0"
+              style={{
+                background: "#0DFFCA",
+                boxShadow: "0 0 20px rgba(13,255,202,0.4)",
+              }}
             >
-              Get Started
+              Search Roles
+              <ArrowRight size={15} strokeWidth={2.5} />
+            </Button>
+          </div>
+
+          {/* Quick Keywords */}
+          <div className="flex items-center justify-center gap-2 flex-wrap mt-3 text-xs text-gray-400">
+            <span className="text-gray-500 font-medium">Popular:</span>
+            {["React", "Fullstack", "Product Designer", "AI / ML", "Remote"].map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => router.push(`/opportunities?search=${encodeURIComponent(tag)}`)}
+                className="text-gray-300 hover:text-[#0DFFCA] transition-colors underline-offset-2 hover:underline cursor-pointer"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </motion.form>
+
+        {/* CTA Buttons */}
+        <motion.div
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
+        >
+          <Link href={user ? `/dashboard/${user?.role}` : "/register"}>
+            <Button
+              className="inline-flex items-center gap-2 px-8 h-[52px] rounded-xl font-semibold text-[15px] text-[#030C1B] transition-transform hover:scale-105"
+              style={{
+                background: "#0DFFCA",
+                boxShadow:
+                  "0 0 28px 4px rgba(13,255,202,0.45), 0 4px 12px rgba(0,0,0,0.5)",
+              }}
+            >
+              Get Started Free
+              <ArrowRight size={16} strokeWidth={2.5} />
             </Button>
           </Link>
 
-        </div>
+          <Link href="/opportunities">
+            <Button
+              variant="bordered"
+              className="inline-flex items-center gap-2 px-8 h-[52px] rounded-xl font-semibold text-[15px] text-white backdrop-blur-md transition-all hover:bg-white/10"
+              style={{
+                borderColor: "rgba(255,255,255,0.18)",
+                background: "rgba(255,255,255,0.04)",
+              }}
+            >
+              <Search size={15} strokeWidth={2.5} />
+              Browse Jobs
+            </Button>
+          </Link>
+        </motion.div>
 
+        {/* Trust badges */}
+        <motion.div
+          className="mt-8 flex items-center gap-2.5 text-gray-400 text-xs"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.5 }}
+        >
+          <span className="flex items-center gap-1 text-gray-300">
+            <Zap size={12} className="text-[#0DFFCA]" />
+            No credit card required
+          </span>
+          <span className="w-1 h-1 rounded-full bg-gray-600 inline-block" />
+          <span className="text-gray-300">2-min setup</span>
+          <span className="w-1 h-1 rounded-full bg-gray-600 inline-block" />
+          <span className="text-gray-300">Vetted startups only</span>
+        </motion.div>
       </div>
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* ── 7. LUCID FROSTED MARQUEE STRIP ─────────────────────── */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <motion.div
+        className="relative z-10 w-full mt-16 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6, duration: 0.7 }}
+      >
+        {/* Left & Right gradient fade masks */}
+        <div
+          className="absolute inset-y-0 left-0 w-28 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to right, var(--sf-navy), transparent)",
+          }}
+        />
+        <div
+          className="absolute inset-y-0 right-0 w-28 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to left, var(--sf-navy), transparent)",
+          }}
+        />
+
+        {/* Scrolling tags */}
+        <div className="flex animate-marquee whitespace-nowrap py-1">
+          {[...MARQUEE_TAGS, ...MARQUEE_TAGS].map((tag, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-1.5 mx-2.5 px-4 py-2 rounded-full text-xs font-medium border backdrop-blur-md transition-all hover:border-[#0DFFCA]/40"
+              style={{
+                background: "rgba(255, 255, 255, 0.03)",
+                borderColor: "rgba(255, 255, 255, 0.08)",
+                color: "#d1d5db",
+                flexShrink: 0,
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* ── 8. BOTTOM SEAMLESS FADE INTO STATS SECTION ─────────── */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-10"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, var(--sf-navy-mid))",
+        }}
+      />
     </section>
   );
 }

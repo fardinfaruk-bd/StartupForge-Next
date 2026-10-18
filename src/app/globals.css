@@ -1,2 +1,127 @@
 @import "tailwindcss";
 @import "@heroui/styles";
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --sf-navy:       #030C1B;
+  --sf-navy-mid:   #051124;
+  --sf-teal:       #0DFFCA;
+  --sf-teal-dim:   #0f6c61;
+  --sf-teal-muted: #0a6c61;
+  --sf-blue:       #002447;
+  --sf-glass:      rgba(255,255,255,0.04);
+  --sf-glass-border: rgba(255,255,255,0.08);
+}
+
+/* ── Custom scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--sf-navy); }
+::-webkit-scrollbar-thumb {
+  background: var(--sf-teal-dim);
+  border-radius: 99px;
+}
+
+/* ── Hide default cursor on desktop (cursor glow takes over) ── */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+
+/* Floating particle drift */
+@keyframes float-a {
+  0%,100% { transform: translateY(0px) translateX(0px); }
+  33%      { transform: translateY(-28px) translateX(14px); }
+  66%      { transform: translateY(14px) translateX(-20px); }
+}
+@keyframes float-b {
+  0%,100% { transform: translateY(0px) translateX(0px); }
+  40%      { transform: translateY(20px) translateX(-16px); }
+  70%      { transform: translateY(-18px) translateX(22px); }
+}
+@keyframes float-c {
+  0%,100% { transform: translateY(0px) translateX(0px); }
+  50%      { transform: translateY(-24px) translateX(-12px); }
+}
+
+/* Slow gradient mesh drift */
+@keyframes gradient-drift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Marquee horizontal scroll */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pulse glow ring */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0px rgba(13,255,202,0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(13,255,202,0); }
+  100% { box-shadow: 0 0 0 0px rgba(13,255,202,0); }
+}
+
+/* Step connector draw */
+@keyframes draw-line {
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Badge shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Slow spin */
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Utility animation classes */
+.animate-float-a { animation: float-a 7s ease-in-out infinite; }
+.animate-float-b { animation: float-b 9s ease-in-out infinite; }
+.animate-float-c { animation: float-c 11s ease-in-out infinite; }
+.animate-marquee  { animation: marquee 28s linear infinite; }
+.animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+.animate-slow-spin  { animation: slow-spin 12s linear infinite; }
+
+/* ── Global Dark Base & Glass Surface Styles Across All Routes ── */
+html,
+body {
+  background-color: var(--sf-navy);
+  color: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* Global Card Glassmorphism across all pages */
+.dark [data-slot="card"],
+.dark .card {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px);
+  color: #f1f5f9;
+}
+
+/* Card titles and headings in dark mode */
+.dark [data-slot="card"] h1,
+.dark [data-slot="card"] h2,
+.dark [data-slot="card"] h3,
+.dark [data-slot="card"] h4,
+.dark .card h1,
+.dark .card h2,
+.dark .card h3,
+.dark .card h4 {
+  color: #ffffff;
+}
+
+/* Native form inputs in dark mode */
+.dark input,
+.dark select,
+.dark textarea {
+  color-scheme: dark;
+}

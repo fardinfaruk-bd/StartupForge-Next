@@ -22,11 +22,11 @@ export default function ProfileView({ userData }) {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
         
         {/* Main Profile Header Card */}
-        <Card className="border-none shadow-md bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md overflow-hidden">
+        <Card className="border border-white/10 shadow-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden rounded-2xl">
           {/* Accent Header Banner */}
           <div className="h-28 bg-linear-to-r from-teal-500 to-emerald-500" />
           

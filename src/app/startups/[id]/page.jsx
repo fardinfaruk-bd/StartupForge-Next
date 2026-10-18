@@ -51,7 +51,7 @@ const StartupDetailsPage = async ({ params }) => {
                                 <img
                                     alt={`${startup.name} logo`}
                                     src={startup.logo || "https://placehold.co/150"}
-                                    className="w-16 h-16 rounded-xl object-contain bg-gray-50 p-2 border border-gray-100"
+                                    className="w-16 h-16 rounded-xl object-contain bg-white/[0.06] p-2 border border-white/10"
                                 />
                                 <div className="flex flex-col">
                                     <h1 className="text-2xl font-bold text-foreground">{startup.name}</h1>
@@ -131,7 +131,7 @@ const StartupDetailsPage = async ({ params }) => {
                             />
                         ))}
                         {(!opportunities || opportunities.length === 0) && (
-                            <div className="text-sm text-default-400 text-center py-4 bg-default-50 rounded-xl border border-dashed border-default-200">
+                            <div className="text-sm text-gray-400 text-center py-5 bg-white/[0.02] rounded-xl border border-dashed border-white/10">
                                 No current opportunities available.
                             </div>
                         )}

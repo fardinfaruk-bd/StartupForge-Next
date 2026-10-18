@@ -1,51 +1,66 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full text-center">
-        
-        {/* Illustration: Lightweight, crisp inline SVG */}
-        <div className="w-full max-w-[360px] mx-auto mb-8 text-indigo-600">
-          <svg
-            viewBox="0 0 400 300"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto"
+    <div className="min-h-[80vh] bg-transparent flex flex-col items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full">
+        {/* Glow Tag */}
+        <span
+          className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 border"
+          style={{
+            background: "rgba(13,255,202,0.08)",
+            borderColor: "rgba(13,255,202,0.2)",
+            color: "#0DFFCA",
+          }}
+        >
+          404 Error
+        </span>
+
+        {/* Big Code */}
+        <div className="relative mb-4">
+          <span
+            className="text-8xl sm:text-9xl font-black tracking-tighter"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.1) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
           >
-            <circle cx="200" cy="150" r="100" fill="#E0E7FF" />
-            {/* Sad/Confused mouth */}
-            <path
-              d="M150 165 C 150 140, 250 140, 250 165"
-              stroke="currentColor"
-              strokeWidth="8"
-              strokeLinecap="round"
-            />
-            {/* Eyes */}
-            <circle cx="165" cy="115" r="10" fill="currentColor" />
-            <circle cx="235" cy="115" r="10" fill="currentColor" />
-            {/* Tech details/grounding lines */}
-            <path d="M180 240 H 220" stroke="#C7D2FE" strokeWidth="6" strokeLinecap="round" />
-            <path d="M140 260 H 260" stroke="#C7D2FE" strokeWidth="4" strokeLinecap="round" />
-          </svg>
+            404
+          </span>
+          <div
+            className="absolute inset-0 blur-3xl opacity-30 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(13,255,202,0.6) 0%, transparent 60%)",
+            }}
+          />
         </div>
 
         {/* Error Message */}
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-          Page Not Found
+        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-3">
+          Lost in the Startup Space?
         </h1>
-        <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-          The page you are looking for doesn't exist, has been removed, or is hiding in another dimension.
+        <p className="text-gray-400 text-sm sm:text-base mb-8 leading-relaxed">
+          The page you are looking for doesn't exist, has been relocated, or is
+          still being forged.
         </p>
 
         {/* Back Home Button */}
-        <Link 
+        <Link
           href="/"
-          className="inline-block bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg"
+          style={{
+            background: "#0DFFCA",
+            color: "#030C1B",
+            boxShadow: "0 0 24px rgba(13,255,202,0.35)",
+          }}
         >
+          <ArrowLeft size={16} />
           Return to Home
         </Link>
-        
       </div>
     </div>
   );
